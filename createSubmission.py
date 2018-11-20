@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import scipy.sparse as sps
 
-def create_submission(URM_all, recommender):
+def create_submission(recommender):
 
     data_playlists= pd.read_csv('all/train.csv',low_memory = False)
     CFRec= pd.read_csv('all/sample_submission.csv',low_memory = False)
@@ -12,7 +12,7 @@ def create_submission(URM_all, recommender):
         playListTrack = data_playlists.loc[data_playlists['playlist_id'] == playlistID]
         trackList= playListTrack["track_id"]
     
-        reccomandationList = RecommenderCSV.recommend(playlistID)
+        reccomandationList = RecommenderCSV.recommend(playlistID,n=100)
     
         recommendation = list()
         n=0

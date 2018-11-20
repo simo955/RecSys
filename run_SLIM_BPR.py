@@ -11,7 +11,7 @@ def run_SLIM():
     URM_train = dataReader.get_URM_train()
     URM_test = dataReader.get_URM_test()
 
-    recommender = SLIM_BPR_Cython(URM_train, recompile_cython=False, positive_threshold=4, sparse_weights=True)
+    recommender = SLIM_BPR_Cython(URM_train, recompile_cython=False, positive_threshold=0, sparse_weights=True)
     #recommender = MF_BPR_Cython(URM_train, recompile_cython=False, positive_threshold=4)
 
     logFile = open("Result_log.txt", "a")
@@ -21,7 +21,7 @@ def run_SLIM():
                     logFile=logFile, batch_size=1, sgd_mode='rmsprop', learning_rate=1e-4)
 
 
-    results_run = recommender.evaluateRecommendations(URM_test, at=5)
+    results_run = recommender.evaluateRecommendations(URM_test, at=10)
     print(results_run)
 
 

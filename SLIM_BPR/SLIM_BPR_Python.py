@@ -25,7 +25,7 @@ def sigmoidFunction(x):
 
 class SLIM_BPR_Python(BPR_Sampling, Similarity_Matrix_Recommender, Recommender):
 
-    def __init__(self, URM_train, positive_threshold=4, sparse_weights = False):
+    def __init__(self, URM_train, positive_threshold=0, sparse_weights = False):
         super(SLIM_BPR_Python, self).__init__()
 
         """
