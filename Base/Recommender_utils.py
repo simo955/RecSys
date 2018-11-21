@@ -97,11 +97,13 @@ def similarityMatrixTopK(item_weights, forceSparseOutput = True, k=100, verbose 
             column_data = item_weights.data[start_position:end_position]
             column_row_index = item_weights.indices[start_position:end_position]
 
-            idx_sorted = np.argsort(column_data)  # sort by column
+            non_zero_data = column_data!=0
+
+            idx_sorted = np.argsort(column_data[non_zero_data])  # sort by column
             top_k_idx = idx_sorted[-k:]
 
-            data.extend(column_data[top_k_idx])
-            rows_indices.extend(column_row_index[top_k_idx])
+            data.extend(column_data[non_zero_data][top_k_idx])
+            rows_indices.extend(column_row_index[non_zero_data][top_k_idx])
 
 
         cols_indptr.append(len(data))
@@ -116,23 +118,6 @@ def similarityMatrixTopK(item_weights, forceSparseOutput = True, k=100, verbose 
         return W_sparse
 
 
-
-
-def removeZeroRatingRowAndCol(URM):
-
-    rows = URM.indptr
-    numRatings = np.ediff1d(rows)
-    mask = numRatings >= 1
-
-    URM = URM[mask,:]
-
-    cols = URM.tocsc().indptr
-    numRatings = np.ediff1d(cols)
-    mask = numRatings >= 1
-
-    URM = URM[:,mask]
-
-    return URM.tocsr()
 
 
 def areURMequals(URM1, URM2):
@@ -180,34 +165,86 @@ def removeTopPop(URM_1, URM_2=None, percentageToRemove=0.2):
 
     return URM_1[:,itemMask], itemMappings, removedItems
 
+#
+#
+# def load_edges (filePath, header = False):
+#
+#     values, rows, cols = [], [], []
+#
+#     fileHandle = open(filePath, "r")
+#     numCells = 0
+#
+#     if header:
+#         fileHandle.readline()
+#
+#     for line in fileHandle:
+#         numCells += 1
+#         if (numCells % 1000000 == 0):
+#             print("Processed {} cells".format(numCells))
+#
+#         if (len(line)) > 1:
+#             line = line.split(",")
+#
+#             value = line[2].replace("\n", "")
+#
+#             if not value == "0" and not value == "NaN":
+#                 rows.append(int(line[0]))
+#                 cols.append(int(line[1]))
+#                 values.append(float(value))
+#
+#     return  sps.csr_matrix((values, (rows, cols)), dtype=np.float32)
 
 
-def loadCSVintoSparse (filePath, header = False):
 
-    values, rows, cols = [], [], []
+def addZeroSamples(S_matrix, numSamplesToAdd):
 
-    fileHandle = open(filePath, "r")
-    numCells = 0
+    n_items = S_matrix.shape[1]
 
-    if header:
-        fileHandle.readline()
+    S_matrix_coo = S_matrix.tocoo()
 
-    for line in fileHandle:
-        numCells += 1
-        if (numCells % 1000000 == 0):
-            print("Processed {} cells".format(numCells))
+    row_index = list(S_matrix_coo.row)
+    col_index = list(S_matrix_coo.col)
+    data = list(S_matrix_coo.data)
 
-        if (len(line)) > 1:
-            line = line.split(",")
+    existingSamples = set(zip(row_index, col_index))
 
-            value = line[2].replace("\n", "")
+    addedSamples = 0
+    consecutiveFailures = 0
 
-            if not value == "0" and not value == "NaN":
-                rows.append(int(line[0]))
-                cols.append(int(line[1]))
-                values.append(float(value))
+    while (addedSamples < numSamplesToAdd):
 
-    return  sps.csr_matrix((values, (rows, cols)), dtype=np.float32)
+        item1 = np.random.randint(0, n_items)
+        item2 = np.random.randint(0, n_items)
+
+        if (item1 != item2 and (item1, item2) not in existingSamples):
+
+            row_index.append(item1)
+            col_index.append(item2)
+            data.append(0)
+
+            existingSamples.add((item1, item2))
+
+            addedSamples += 1
+            consecutiveFailures = 0
+
+        else:
+            consecutiveFailures += 1
+
+        if (consecutiveFailures >= 100):
+            raise SystemExit(
+                "Unable to generate required zero samples, termination at 100 consecutive discarded samples")
+
+    return row_index, col_index, data
 
 
+def reshapeSparse(sparseMatrix, newShape):
 
+    if sparseMatrix.shape[0] > newShape[0] or sparseMatrix.shape[1] > newShape[1]:
+        ValueError("New shape cannot be smaller than SparseMatrix. SparseMatrix shape is: {}, newShape is {}".format(
+            sparseMatrix.shape, newShape))
+
+
+    sparseMatrix = sparseMatrix.tocoo()
+    newMatrix = sps.csr_matrix((sparseMatrix.data, (sparseMatrix.row, sparseMatrix.col)), shape=newShape)
+
+    return newMatrix

@@ -5,21 +5,19 @@
 @author: Maurizio Ferrari Dacrema
 """
 
-import multiprocessing
-import time
-
 import numpy as np
-
-from Base.metrics import roc_auc, precision, recall, map, ndcg, rr
-#from Base.Cython.metrics import roc_auc, precision, recall, map, ndcg, rr
-from Base.Recommender_utils import check_matrix, areURMequals, removeTopPop
+import pickle
 
 
 class Recommender(object):
     """Abstract Recommender"""
 
+    RECOMMENDER_NAME = "Recommender_Base_Class"
+
     def __init__(self):
+
         super(Recommender, self).__init__()
+
         self.URM_train = None
         self.sparse_weights = True
         self.normalize = False
@@ -27,24 +25,41 @@ class Recommender(object):
         self.filterTopPop = False
         self.filterTopPop_ItemsID = np.array([], dtype=np.int)
 
-        self.filterCustomItems = False
-        self.filterCustomItems_ItemsID = np.array([], dtype=np.int)
+        self.items_to_ignore_flag = False
+        self.items_to_ignore_ID = np.array([], dtype=np.int)
 
 
     def fit(self):
         pass
 
-    def _filter_TopPop_on_scores(self, scores):
-        scores[self.filterTopPop_ItemsID] = -np.inf
-        return scores
+    def get_URM_train(self):
+        return self.URM_train.copy()
 
 
-    def _filterCustomItems_on_scores(self, scores):
-        scores[self.filterCustomItems_ItemsID] = -np.inf
-        return scores
+    def set_items_to_ignore(self, items_to_ignore):
+
+        self.items_to_ignore_flag = True
+        self.items_to_ignore_ID = np.array(items_to_ignore, dtype=np.int)
+
+    def reset_items_to_ignore(self):
+
+        self.items_to_ignore_flag = False
+        self.items_to_ignore_ID = np.array([], dtype=np.int)
 
 
-    def _filter_seen_on_scores(self, user_id, scores):
+    def _remove_TopPop_on_scores(self, scores_batch):
+        scores_batch[:, self.filterTopPop_ItemsID] = -np.inf
+        return scores_batch
+
+
+    def _remove_CustomItems_on_scores(self, scores_batch):
+        scores_batch[:, self.items_to_ignore_ID] = -np.inf
+        return scores_batch
+
+
+    def _remove_seen_on_scores(self, user_id, scores):
+
+        assert self.URM_train.getformat() == "csr", "Recommender_Base_Class: URM_train is not CSR, this will cause errors in filtering seen items"
 
         seen = self.URM_train.indices[self.URM_train.indptr[user_id]:self.URM_train.indptr[user_id + 1]]
 
@@ -54,8 +69,102 @@ class Recommender(object):
 
 
 
-    def evaluateRecommendations(self, URM_test_new, at=10, minRatingsPerUser=1, exclude_seen=True,
-                                mode='sequential', filterTopPop = False,
+
+
+
+    def compute_item_score(self, user_id):
+        raise NotImplementedError("Recommender: compute_item_score not assigned for current recommender, unable to compute prediction scores")
+
+
+
+
+
+
+    def recommend(self, user_id_array, cutoff = 10, remove_seen_flag=True, remove_top_pop_flag = False, remove_CustomItems_flag = False):
+
+        # If is a scalar transform it in a 1-cell array
+        if np.isscalar(user_id_array):
+            user_id_array = np.atleast_1d(user_id_array)
+            single_user = True
+        else:
+            single_user = False
+
+
+        if cutoff is None:
+            cutoff = self.URM_train.shape[1] - 1
+
+        # Compute the scores using the model-specific function
+        # Vectorize over all users in user_id_array
+        scores_batch = self.compute_item_score(user_id_array)
+
+
+        # if self.normalize:
+        #     # normalization will keep the scores in the same range
+        #     # of value of the ratings in dataset
+        #     user_profile = self.URM_train[user_id]
+        #
+        #     rated = user_profile.copy()
+        #     rated.data = np.ones_like(rated.data)
+        #     if self.sparse_weights:
+        #         den = rated.dot(self.W_sparse).toarray().ravel()
+        #     else:
+        #         den = rated.dot(self.W).ravel()
+        #     den[np.abs(den) < 1e-6] = 1.0  # to avoid NaNs
+        #     scores /= den
+
+
+        for user_index in range(len(user_id_array)):
+
+            user_id = user_id_array[user_index]
+
+            if remove_seen_flag:
+                scores_batch[user_index,:] = self._remove_seen_on_scores(user_id, scores_batch[user_index, :])
+
+            # Sorting is done in three steps. Faster then plain np.argsort for higher number of items
+            # - Partition the data to extract the set of relevant items
+            # - Sort only the relevant items
+            # - Get the original item index
+            # relevant_items_partition = (-scores_user).argpartition(cutoff)[0:cutoff]
+            # relevant_items_partition_sorting = np.argsort(-scores_user[relevant_items_partition])
+            # ranking = relevant_items_partition[relevant_items_partition_sorting]
+            #
+            # ranking_list.append(ranking)
+
+
+        if remove_top_pop_flag:
+            scores_batch = self._remove_TopPop_on_scores(scores_batch)
+
+        if remove_CustomItems_flag:
+            scores_batch = self._remove_CustomItems_on_scores(scores_batch)
+
+        # scores_batch = np.arange(0,3260).reshape((1, -1))
+        # scores_batch = np.repeat(scores_batch, 1000, axis = 0)
+
+        # relevant_items_partition is block_size x cutoff
+        relevant_items_partition = (-scores_batch).argpartition(cutoff, axis=1)[:,0:cutoff]
+
+        # Get original value and sort it
+        # [:, None] adds 1 dimension to the array, from (block_size,) to (block_size,1)
+        # This is done to correctly get scores_batch value as [row, relevant_items_partition[row,:]]
+        relevant_items_partition_original_value = scores_batch[np.arange(scores_batch.shape[0])[:, None], relevant_items_partition]
+        relevant_items_partition_sorting = np.argsort(-relevant_items_partition_original_value, axis=1)
+        ranking = relevant_items_partition[np.arange(relevant_items_partition.shape[0])[:, None], relevant_items_partition_sorting]
+
+        ranking_list = ranking.tolist()
+
+
+        # Return single list for one user, instead of list of lists
+        if single_user:
+            ranking_list = ranking_list[0]
+
+        return ranking_list
+
+
+
+
+
+
+    def evaluateRecommendations(self, URM_test, at=10, minRatingsPerUser=1, exclude_seen=True,
                                 filterCustomItems = np.array([], dtype=np.int),
                                 filterCustomUsers = np.array([], dtype=np.int)):
         """
@@ -64,7 +173,7 @@ class Recommender(object):
         - Dense weighgts: batch and sequential speed are equivalent
 
 
-        :param URM_test_new:            URM to be used for testing
+        :param URM_test:            URM to be used for testing
         :param at: 5                    Length of the recommended items
         :param minRatingsPerUser: 1     Users with less than this number of interactions will not be evaluated
         :param exclude_seen: True       Whether to remove already seen items from the recommended items
@@ -76,295 +185,60 @@ class Recommender(object):
         :return:
         """
 
-        if len(filterCustomItems) == 0:
-            self.filterCustomItems = False
-        else:
-            self.filterCustomItems = True
-            self.filterCustomItems_ItemsID = np.array(filterCustomItems)
+        import warnings
 
+        warnings.warn("DEPRECATED! Use Base.Evaluation.SequentialEvaluator.evaluateRecommendations()", DeprecationWarning)
 
-        if filterTopPop != False:
 
-            self.filterTopPop = True
+        from Base.Evaluation.Evaluator import SequentialEvaluator
 
-            _,_, self.filterTopPop_ItemsID = removeTopPop(self.URM_train, URM_2 = URM_test_new, percentageToRemove=filterTopPop)
+        evaluator = SequentialEvaluator(URM_test, [at], exclude_seen= exclude_seen,
+                                        minRatingsPerUser=minRatingsPerUser,
+                                        ignore_items=filterCustomItems, ignore_users=filterCustomUsers)
 
-            print("Filtering {}% TopPop items, count is: {}".format(filterTopPop*100, len(self.filterTopPop_ItemsID)))
+        results_run, results_run_string = evaluator.evaluateRecommender(self)
 
-            # Zero-out the items in order to be considered irrelevant
-            URM_test_new = check_matrix(URM_test_new, format='lil')
-            URM_test_new[:,self.filterTopPop_ItemsID] = 0
-            URM_test_new = check_matrix(URM_test_new, format='csr')
+        results_run = results_run[at]
 
+        results_run_lowercase = {}
 
-        # During testing CSR is faster
-        self.URM_test = check_matrix(URM_test_new, format='csr')
-        self.URM_train = check_matrix(self.URM_train, format='csr')
-        self.at = at
-        self.minRatingsPerUser = minRatingsPerUser
-        self.exclude_seen = exclude_seen
+        for key in results_run.keys():
+            results_run_lowercase[key.lower()] = results_run[key]
 
 
-        nusers = self.URM_test.shape[0]
+        return results_run_lowercase
 
-        # Prune users with an insufficient number of ratings
-        rows = self.URM_test.indptr
-        numRatings = np.ediff1d(rows)
-        mask = numRatings >= minRatingsPerUser
-        usersToEvaluate = np.arange(nusers)[mask]
 
-        if len(filterCustomUsers) != 0:
-            print("Filtering {} Users".format(len(filterCustomUsers)))
-            usersToEvaluate = set(usersToEvaluate) - set(filterCustomUsers)
 
-        usersToEvaluate = list(usersToEvaluate)
 
 
 
-        if mode=='sequential':
-            return self.evaluateRecommendationsSequential(usersToEvaluate)
-        elif mode=='parallel':
-            return self.evaluateRecommendationsParallel(usersToEvaluate)
-        elif mode=='batch':
-            return self.evaluateRecommendationsBatch(usersToEvaluate)
-        # elif mode=='cython':
-        #     return self.evaluateRecommendationsCython(usersToEvaluate)
-        # elif mode=='random-equivalent':
-        #     return self.evaluateRecommendationsRandomEquivalent(usersToEvaluate)
-        else:
-            raise ValueError("Mode '{}' not available".format(mode))
 
 
-    def get_user_relevant_items(self, user_id):
 
-        return self.URM_test.indices[self.URM_test.indptr[user_id]:self.URM_test.indptr[user_id+1]]
 
-    def get_user_test_ratings(self, user_id):
 
-        return self.URM_test.data[self.URM_test.indptr[user_id]:self.URM_test.indptr[user_id+1]]
 
 
+    def saveModel(self, folder_path, file_name = None):
+        raise NotImplementedError("Recommender: saveModel not implemented")
 
 
-    def evaluateRecommendationsSequential(self, usersToEvaluate):
 
-        start_time = time.time()
 
-        roc_auc_, precision_, recall_, map_, mrr_, ndcg_ = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
-        n_eval = 0
+    def loadModel(self, folder_path, file_name = None):
 
-        for test_user in usersToEvaluate:
+        if file_name is None:
+            file_name = self.RECOMMENDER_NAME
 
-            # Calling the 'evaluateOneUser' function instead of copying its code would be cleaner, but is 20% slower
+        print("{}: Loading model from file '{}'".format(self.RECOMMENDER_NAME, folder_path + file_name))
 
-            # Being the URM CSR, the indices are the non-zero column indexes
-            relevant_items = self.get_user_relevant_items(test_user)
 
-            n_eval += 1
+        data_dict = pickle.load(open(folder_path + file_name, "rb"))
 
-            recommended_items = self.recommend(user_id=test_user, exclude_seen=self.exclude_seen,
-                                               n=self.at, filterTopPop=self.filterTopPop, filterCustomItems=self.filterCustomItems)
+        for attrib_name in data_dict.keys():
+             self.__setattr__(attrib_name, data_dict[attrib_name])
 
-            is_relevant = np.in1d(recommended_items, relevant_items, assume_unique=True)
 
-            # evaluate the recommendation list with ranking metrics ONLY
-            roc_auc_ += roc_auc(is_relevant)
-            precision_ += precision(is_relevant)
-            recall_ += recall(is_relevant, relevant_items)
-            map_ += map(is_relevant, relevant_items)
-            mrr_ += rr(is_relevant)
-            ndcg_ += ndcg(recommended_items, relevant_items, relevance=self.get_user_test_ratings(test_user), at=self.at)
-
-
-
-            if n_eval % 10000 == 0 or n_eval==len(usersToEvaluate)-1:
-                print("Processed {} ( {:.2f}% ) in {:.2f} seconds. Users per second: {:.0f}".format(
-                                  n_eval,
-                                  100.0* float(n_eval+1)/len(usersToEvaluate),
-                                  time.time()-start_time,
-                                  float(n_eval)/(time.time()-start_time)))
-
-
-
-
-        if (n_eval > 0):
-            roc_auc_ /= n_eval
-            precision_ /= n_eval
-            recall_ /= n_eval
-            map_ /= n_eval
-            mrr_ /= n_eval
-            ndcg_ /= n_eval
-
-        else:
-            print("WARNING: No users had a sufficient number of relevant items")
-
-        results_run = {}
-
-        results_run["AUC"] = roc_auc_
-        results_run["precision"] = precision_
-        results_run["recall"] = recall_
-        results_run["map"] = map_
-        results_run["NDCG"] = ndcg_
-        results_run["MRR"] = mrr_
-
-        return (results_run)
-
-
-
-
-    def evaluateRecommendationsBatch(self, usersToEvaluate, batch_size = 1000):
-
-        roc_auc_, precision_, recall_, map_, mrr_, ndcg_ = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
-        n_eval = 0
-
-        start_time = time.time()
-        start_time_batch = time.time()
-
-        #Number of blocks is rounded to the next integer
-        totalNumberOfBatch = int(len(usersToEvaluate) / batch_size) + 1
-
-        for current_batch in range(totalNumberOfBatch):
-
-            user_first_id = current_batch*batch_size
-            user_last_id = min((current_batch+1)*batch_size-1,  len(usersToEvaluate)-1)
-
-            users_in_batch = usersToEvaluate[user_first_id:user_last_id]
-
-            relevant_items_batch = self.URM_test[users_in_batch]
-
-            recommended_items_batch = self.recommendBatch(users_in_batch,
-                                                          exclude_seen=self.exclude_seen,
-                                                          n=self.at, filterTopPop=self.filterTopPop,
-                                                          filterCustomItems=self.filterCustomItems)
-
-
-            for test_user in range(recommended_items_batch.shape[0]):
-
-                n_eval += 1
-
-                current_user = relevant_items_batch[test_user,:]
-
-                relevant_items = current_user.indices
-                recommended_items = recommended_items_batch[test_user,:]
-
-                is_relevant = np.in1d(recommended_items, relevant_items, assume_unique=True)
-
-                # evaluate the recommendation list with ranking metrics ONLY
-                roc_auc_ += roc_auc(is_relevant)
-                precision_ += precision(is_relevant)
-                recall_ += recall(is_relevant, relevant_items)
-                map_ += map(is_relevant, relevant_items)
-                mrr_ += rr(is_relevant)
-                ndcg_ += ndcg(recommended_items, relevant_items, relevance=current_user.data, at=self.at)
-
-
-
-            if(time.time() - start_time_batch >= 20 or current_batch == totalNumberOfBatch-1):
-                print("Processed {} ( {:.2f}% ) in {:.2f} seconds. Users per second: {:.0f}".format(
-                                  n_eval,
-                                  100.0* float(n_eval)/len(usersToEvaluate),
-                                  time.time()-start_time,
-                                  float(n_eval)/(time.time()-start_time)))
-
-                start_time_batch = time.time()
-
-
-        if (n_eval > 0):
-            roc_auc_ /= n_eval
-            precision_ /= n_eval
-            recall_ /= n_eval
-            map_ /= n_eval
-            mrr_ /= n_eval
-            ndcg_ /= n_eval
-
-        else:
-            print("WARNING: No users had a sufficient number of relevant items")
-
-        results_run = {}
-
-        results_run["AUC"] = roc_auc_
-        results_run["precision"] = precision_
-        results_run["recall"] = recall_
-        results_run["map"] = map_
-        results_run["NDCG"] = ndcg_
-        results_run["MRR"] = mrr_
-
-        return (results_run)
-
-
-
-    def evaluateOneUser(self, test_user):
-
-        # Being the URM CSR, the indices are the non-zero column indexes
-        #relevant_items = self.URM_test_relevantItems[test_user]
-        relevant_items = self.URM_test[test_user].indices
-
-        # this will rank top n items
-        recommended_items = self.recommend(user_id=test_user, exclude_seen=self.exclude_seen,
-                                           n=self.at, filterTopPop=self.filterTopPop,
-                                           filterCustomItems=self.filterCustomItems)
-
-        is_relevant = np.in1d(recommended_items, relevant_items, assume_unique=True)
-
-        # evaluate the recommendation list with ranking metrics ONLY
-        roc_auc_ = roc_auc(is_relevant)
-        precision_ = precision(is_relevant)
-        recall_ = recall(is_relevant, relevant_items)
-        map_ = map(is_relevant, relevant_items)
-        mrr_ = rr(is_relevant)
-        ndcg_ = ndcg(recommended_items, relevant_items, relevance=self.get_user_test_ratings(test_user), at=self.at)
-
-        return roc_auc_, precision_, recall_, map_, mrr_, ndcg_
-
-
-
-    def evaluateRecommendationsParallel(self, usersToEvaluate):
-
-        print("Evaluation of {} users begins".format(len(usersToEvaluate)))
-
-        pool = multiprocessing.Pool(processes=multiprocessing.cpu_count(), maxtasksperchild=1)
-        resultList = pool.map(self.evaluateOneUser, usersToEvaluate)
-
-        # Close the pool to avoid memory leaks
-        pool.close()
-
-        n_eval = len(usersToEvaluate)
-        roc_auc_, precision_, recall_, map_, mrr_, ndcg_ = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
-
-        # Looping is slightly faster then using the numpy vectorized approach, less data transformation
-        for result in resultList:
-            roc_auc_ += result[0]
-            precision_ += result[1]
-            recall_ += result[2]
-            map_ += result[3]
-            mrr_ += result[4]
-            ndcg_ += result[5]
-
-
-        if (n_eval > 0):
-            roc_auc_ = roc_auc_/n_eval
-            precision_ = precision_/n_eval
-            recall_ = recall_/n_eval
-            map_ = map_/n_eval
-            mrr_ = mrr_/n_eval
-            ndcg_ =  ndcg_/n_eval
-
-        else:
-            print("WARNING: No users had a sufficient number of relevant items")
-
-
-        print("Evaluated {} users".format(n_eval))
-
-        results = {}
-
-        results["AUC"] = roc_auc_
-        results["precision"] = precision_
-        results["recall"] = recall_
-        results["map"] = map_
-        results["NDCG"] = ndcg_
-        results["MRR"] = mrr_
-
-        return (results)
-
-
+        print("{}: Loading complete".format(self.RECOMMENDER_NAME))
 

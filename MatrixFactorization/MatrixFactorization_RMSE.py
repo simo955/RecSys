@@ -34,6 +34,8 @@ class FunkSVD(Recommender):
     Latent factors are initialized from a Normal distribution with given mean and std.
     '''
 
+    RECOMMENDER_NAME = "FunkSVD"
+
     # TODO: add global effects
     def __init__(self, URM_train):
 
@@ -153,11 +155,11 @@ class FunkSVD(Recommender):
 
 
 
-    def recommend(self, user_id, n=None, exclude_seen=True, filterTopPop = False, filterCustomItems = False):
+    def recommend(self, user_id, cutoff=None, remove_seen_flag=True, remove_top_pop_flag = False, remove_CustomItems = False):
 
 
-        if n==None:
-            n=self.URM_train.shape[1]-1
+        if cutoff==None:
+            cutoff= self.URM_train.shape[1] - 1
 
         scores_array = np.dot(self.U[user_id], self.V.T)
 
@@ -165,14 +167,14 @@ class FunkSVD(Recommender):
             raise ValueError("Not implemented")
 
 
-        if exclude_seen:
-            scores = self._filter_seen_on_scores(user_id, scores_array)
+        if remove_seen_flag:
+            scores = self._remove_seen_on_scores(user_id, scores_array)
 
-        if filterTopPop:
-            scores = self._filter_TopPop_on_scores(scores_array)
+        if remove_top_pop_flag:
+            scores = self._remove_TopPop_on_scores(scores_array)
 
-        if filterCustomItems:
-            scores = self._filterCustomItems_on_scores(scores_array)
+        if remove_CustomItems:
+            scores = self._remove_CustomItems_on_scores(scores_array)
 
 
         # rank items and mirror column to obtain a ranking in descending score
@@ -183,13 +185,42 @@ class FunkSVD(Recommender):
         # - Partition the data to extract the set of relevant items
         # - Sort only the relevant items
         # - Get the original item index
-        relevant_items_partition = (-scores_array).argpartition(n)[0:n]
+        relevant_items_partition = (-scores_array).argpartition(cutoff)[0:cutoff]
         relevant_items_partition_sorting = np.argsort(-scores_array[relevant_items_partition])
         ranking = relevant_items_partition[relevant_items_partition_sorting]
 
 
         return ranking
 
+
+
+    def saveModel(self, folderPath, namePrefix = None, forceSparse = True):
+
+        print("{}: Saving model in folder '{}'".format(self.RECOMMENDER_NAME, folderPath))
+
+        if namePrefix is None:
+            namePrefix = self.RECOMMENDER_NAME
+
+        namePrefix += "_"
+
+        np.savez(folderPath + "{}.npz".format(namePrefix), W = self.U, H = self.V)
+
+
+
+    def loadModel(self, folderPath, namePrefix = None, forceSparse = True):
+
+
+        print("{}: Loading model from folder '{}'".format(self.RECOMMENDER_NAME, folderPath))
+
+        if namePrefix is None:
+            namePrefix = self.RECOMMENDER_NAME
+
+        namePrefix += "_"
+
+        npzfile = np.load(folderPath + "{}.npz".format(namePrefix))
+
+        for attrib_name in npzfile.files:
+             self.__setattr__(attrib_name, npzfile[attrib_name])
 
 
 
@@ -256,13 +287,13 @@ class AsySVD(Recommender):
         M = R.shape[0]
         self.U = np.vstack([AsySVD_compute_user_factors(R[i], self.Y) for i in range(M)])
 
-    def recommend(self, user_id, n=None, exclude_seen=True):
+    def recommend(self, user_id, cutoff=None, remove_seen_flag=True):
         scores = np.dot(self.X, self.U[user_id].T)
         ranking = scores.argsort()[::-1]
         # rank items
-        if exclude_seen:
+        if remove_seen_flag:
             ranking = self._filter_seen(user_id, ranking)
-        return ranking[:n]
+        return ranking[:cutoff]
 
 
     def _get_user_ratings(self, user_id):
@@ -372,13 +403,13 @@ class IALS_numpy(Recommender):
             self.Y = self._lsq_solver_fast(Ct, self.Y, self.X, self.reg)
             logger.debug('Finished iter {}'.format(it + 1))
 
-    def recommend(self, user_id, n=None, exclude_seen=True):
+    def recommend(self, user_id, cutoff=None, remove_seen_flag=True):
         scores = np.dot(self.X[user_id], self.Y.T)
         ranking = scores.argsort()[::-1]
         # rank items
-        if exclude_seen:
+        if remove_seen_flag:
             ranking = self._filter_seen(user_id, ranking)
-        return ranking[:n]
+        return ranking[:cutoff]
 
     def _lsq_solver(self, C, X, Y, reg):
         # precompute YtY
@@ -533,13 +564,13 @@ class BPRMF(Recommender):
                                    rnd_seed=self.rnd_seed,
                                    verbose=self.verbose)
 
-    def recommend(self, user_id, n=None, exclude_seen=True):
+    def recommend(self, user_id, cutoff=None, remove_seen_flag=True):
         scores = np.dot(self.X[user_id], self.Y.T)
         ranking = scores.argsort()[::-1]
         # rank items
-        if exclude_seen:
+        if remove_seen_flag:
             ranking = self._filter_seen(user_id, ranking)
-        return ranking[:n]
+        return ranking[:cutoff]
 
 
 

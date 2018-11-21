@@ -24,7 +24,8 @@ import sys
 
 
 @cython.boundscheck(False)
-def FunkSVD_sgd(R, int num_factors=50, double lrate=0.01, double reg=0.015, int n_iterations=10, init_mean=0.0, init_std=0.1, double lrate_decay=1.0, rnd_seed=42):
+def FunkSVD_sgd(R, int num_factors=50, double lrate=0.01,
+    double reg=0.015, int n_iterations=10, init_mean=0.0, init_std=0.1, double lrate_decay=1.0, rnd_seed=42):
     if not isinstance(R, sps.csr_matrix):
         raise ValueError('R must be an instance of scipy.sparse.csr_matrix')
 

@@ -58,11 +58,11 @@ class MyTestCase(unittest.TestCase):
         dense_output = similarityMatrixTopK(dense_input, k=TopK, forceSparseOutput=False, inplace=False)
         sparse_output = similarityMatrixTopK(sparse_input, k=TopK, forceSparseOutput=True)
 
-        self.assertTrue(np.all((dense_output - sparse_output.todense())<1e-6), "sparseToSparse CSR incorrect")
+        self.assertTrue(np.allclose(dense_output, sparse_output.todense()), "sparseToSparse CSR incorrect")
 
         sparse_input = sps.csc_matrix(dense_input)
         sparse_output = similarityMatrixTopK(sparse_input, k=TopK, forceSparseOutput=True)
-        self.assertTrue(np.all((dense_output - sparse_output.todense())<1e-6), "sparseToSparse CSC incorrect")
+        self.assertTrue(np.allclose(dense_output, sparse_output.todense()), "sparseToSparse CSC incorrect")
 
 if __name__ == '__main__':
 
