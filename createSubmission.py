@@ -12,7 +12,7 @@ def create_submission(recommender):
         playListTrack = data_playlists.loc[data_playlists['playlist_id'] == playlistID]
         trackList= playListTrack["track_id"]
     
-        reccomandationList = RecommenderCSV.recommend(playlistID,n=100)
+        reccomandationList = RecommenderCSV.recommend(playlistID)
     
         recommendation = list()
         n=0
