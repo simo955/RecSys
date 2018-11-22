@@ -23,7 +23,7 @@ class MatrixFactorization_Cython(Recommender, Incremental_Training_Early_Stoppin
     RECOMMENDER_NAME = "MatrixFactorization_Cython_Recommender"
 
 
-    def __init__(self, URM_train, positive_threshold=4, URM_validation = None, recompile_cython = False, algorithm = "MF_BPR"):
+    def __init__(self, URM_train, positive_threshold=0, URM_validation = None, recompile_cython = False, algorithm = "MF_BPR"):
 
 
         super(MatrixFactorization_Cython, self).__init__()
