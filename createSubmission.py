@@ -26,5 +26,5 @@ def create_submission(recommender):
     for row in CFRec.itertuples():
         CFRec.at[row.Index, "track_ids"]= recommendationSS(row.playlist_id)
     
-    CFRec.to_csv("Submissions/newSubmission1.csv", encoding='utf-8', index=False)
+    CFRec.to_csv("SubToD/newSubmission1.csv", encoding='utf-8', index=False)
 

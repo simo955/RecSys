@@ -33,7 +33,7 @@ class UserKNNCFRecommender(SimilarityMatrixRecommender, Recommender):
 
 
 
-    def fit(self, topK=50, shrink=100, similarity='cosine', normalize=True, **similarity_args):
+    def fit(self, topK=150, shrink=10, similarity='tversky', normalize=True, **similarity_args):
 
         self.topK = topK
         self.shrink = shrink

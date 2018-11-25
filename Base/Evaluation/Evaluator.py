@@ -17,7 +17,6 @@ from Base.Evaluation.metrics import roc_auc, precision, recall, recall_min_test_
 
 
 class EvaluatorMetrics(Enum):
-
     ROC_AUC = "ROC_AUC"
     PRECISION = "PRECISION"
     RECALL = "RECALL"
@@ -45,7 +44,7 @@ def create_empty_metrics_dict(n_items, n_users, URM_train, ignore_items, ignore_
 
     # from Base.Evaluation.ResultMetric import ResultMetric
     # empty_dict = ResultMetric()
-
+    
     for metric in EvaluatorMetrics:
         if metric == EvaluatorMetrics.COVERAGE_ITEM:
             empty_dict[metric.value] = Coverage_Item(n_items, ignore_items)
@@ -73,9 +72,9 @@ def create_empty_metrics_dict(n_items, n_users, URM_train, ignore_items, ignore_
                     empty_dict[metric.value] = copy.deepcopy(diversity_similarity_object)
         else:
             empty_dict[metric.value] = 0.0
-
+  
     return  empty_dict
-
+ 
 
 
 
@@ -382,6 +381,7 @@ class SequentialEvaluator(Evaluator):
                     results_current_cutoff[EvaluatorMetrics.PRECISION.value]            += precision(is_relevant_current_cutoff, len(relevant_items))
                     results_current_cutoff[EvaluatorMetrics.RECALL.value]               += recall(is_relevant_current_cutoff, relevant_items)
                     results_current_cutoff[EvaluatorMetrics.RECALL_TEST_LEN.value]      += recall_min_test_len(is_relevant_current_cutoff, relevant_items)
+                    
                     results_current_cutoff[EvaluatorMetrics.MAP.value]                  += map(is_relevant_current_cutoff, relevant_items)
                     results_current_cutoff[EvaluatorMetrics.MRR.value]                  += rr(is_relevant_current_cutoff)
                     results_current_cutoff[EvaluatorMetrics.NDCG.value]                 += ndcg(recommended_items_current_cutoff, relevant_items, relevance=self.get_user_test_ratings(user_id), at=cutoff)
@@ -398,8 +398,6 @@ class SequentialEvaluator(Evaluator):
 
                     if EvaluatorMetrics.DIVERSITY_SIMILARITY.value in results_current_cutoff:
                         results_current_cutoff[EvaluatorMetrics.DIVERSITY_SIMILARITY.value].add_recommendations(recommended_items_current_cutoff)
-
-
 
 
 

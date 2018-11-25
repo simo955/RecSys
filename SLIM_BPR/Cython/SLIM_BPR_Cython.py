@@ -18,6 +18,8 @@ import os, sys, time
 
 import numpy as np
 from Base.Evaluation.Evaluator import SequentialEvaluator
+#Tunato miglior risultato ottenuto con epochs=100,topK = 200, learning_rate=0.025, lambda_i = 1e-4, lambda_j = 1e-4. In locale #'MAP': 0.0858 su Kaggle 0.08498
+
 
 
 
@@ -30,8 +32,8 @@ class SLIM_BPR_Cython(SimilarityMatrixRecommender, Recommender, Incremental_Trai
     RECOMMENDER_NAME = "SLIM_BPR_Recommender"
 
 
-    def __init__(self, URM_train, positive_threshold=4, URM_validation = None,
-                 recompile_cython = False, final_model_sparse_weights = True, train_with_sparse_weights = False,
+    def __init__(self, URM_train, positive_threshold=0, URM_validation = None,
+                 recompile_cython = True, final_model_sparse_weights = True, train_with_sparse_weights = False,
                  symmetric = True):
 
 
@@ -88,9 +90,8 @@ class SLIM_BPR_Cython(SimilarityMatrixRecommender, Recommender, Incremental_Trai
 
 
 
-
-    def fit(self, epochs=300, logFile=None,
-            batch_size = 1000, lambda_i = 0.0, lambda_j = 0.0, learning_rate = 1e-4, topK = 200,
+    def fit(self, epochs=100, logFile=None,
+            batch_size = 1000,lambda_i = 1e-4, lambda_j = 1e-4, learning_rate=0.025, topK = 200,
             sgd_mode='adagrad', gamma=0.995, beta_1=0.9, beta_2=0.999,
             stop_on_validation = False, lower_validatons_allowed = 5, validation_metric = "MAP",
             evaluator_object = None, validation_every_n = 1):
