@@ -13,7 +13,6 @@ from KNN.ItemKNNCBFRecommender import ItemKNNCBFRecommender
 from GraphBased.RP3betaRecommender import RP3betaRecommender
 from GraphBased.P3alphaRecommender import P3alphaRecommender
 
-from data.Movielens_10M.Movielens10MReader import Movielens10MReader
 
 import traceback, os
 
@@ -21,30 +20,33 @@ import traceback, os
 if __name__ == '__main__':
 
 
-    dataReader = Movielens10MReader()
 
-    URM_train = dataReader.get_URM_train()
-    URM_validation = dataReader.get_URM_validation()
-    URM_test = dataReader.get_URM_test()
+
+
+    import scipy.sparse
+    URM_all = scipy.sparse.load_npz('URM_all_matrix.npz')
+    ICM_all = scipy.sparse.load_npz('ICM_all_matrix.npz')
+    URM_train = scipy.sparse.load_npz('URM_train_matrix.npz')
+    URM_test = scipy.sparse.load_npz('URM_test_matrix.npz')
 
     recommender_list = [
-        Random,
-        TopPop,
-        P3alphaRecommender,
-        RP3betaRecommender,
-        ItemKNNCFRecommender,
-        UserKNNCFRecommender,
-        MatrixFactorization_BPR_Cython,
-        MatrixFactorization_FunkSVD_Cython,
-        PureSVDRecommender,
-        SLIM_BPR_Cython,
+        #Random,
+        #TopPop,
+        #P3alphaRecommender,
+        #RP3betaRecommender,
+        #ItemKNNCFRecommender,
+        #UserKNNCFRecommender,
+        #MatrixFactorization_BPR_Cython,
+        #MatrixFactorization_FunkSVD_Cython,
+        #PureSVDRecommender,
+        #SLIM_BPR_Cython,
         SLIMElasticNetRecommender
         ]
 
 
     from Base.Evaluation.Evaluator import SequentialEvaluator
 
-    evaluator = SequentialEvaluator(URM_test, [5, 20], exclude_seen=True)
+    evaluator = SequentialEvaluator(URM_test, [20], exclude_seen=True)
 
 
     output_root_path = "result_experiments/"
@@ -64,14 +66,16 @@ if __name__ == '__main__':
             print("Algorithm: {}".format(recommender_class))
 
 
+
             recommender = recommender_class(URM_train)
             recommender.fit()
+            result = recommender.evaluateRecommendations(URM_test)
+            print("Recommender MAP is= {}".format(result["MAP"]))
+            # results_run, results_run_string = evaluator.evaluateRecommender(recommender)
 
-            results_run, results_run_string = evaluator.evaluateRecommender(recommender)
-
-            print("Algorithm: {}, results: \n{}".format(recommender.__class__, results_run_string))
-            logFile.write("Algorithm: {}, results: \n{}\n".format(recommender.__class__, results_run_string))
-            logFile.flush()
+            # print("Algorithm: {}, results: \n{}".format(recommender.__class__, results_run_string))
+            # logFile.write("Algorithm: {}, results: \n{}\n".format(recommender.__class__, results_run_string))
+            # logFile.flush()
 
         except Exception as e:
             traceback.print_exc()

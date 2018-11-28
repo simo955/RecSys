@@ -65,7 +65,7 @@ class SLIM_BPR(Recommender):
 
 
 
-    def fit(self, epochs=15):
+    def fit(self, epochs=5):
         """
         Train SLIM wit BPR. If the model was already trained, overwrites matrix S
         :param epochs:

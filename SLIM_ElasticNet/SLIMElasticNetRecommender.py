@@ -47,23 +47,26 @@ class SLIMElasticNetRecommender(SimilarityMatrixRecommender, Recommender):
         )
 
 
-    def fit(self,  l1_penalty=1e-5, l2_penalty=1e-2, positive_only=True, topK = 200):
+    def fit(self, topK= 400,  positive_only=True):
 
-        self.l1_penalty = l1_penalty
-        self.l2_penalty = l2_penalty
+        #self.l1_penalty = l1_penalty
+        #self.l2_penalty = l2_penalty
         self.positive_only = positive_only
         self.topK = topK
+        self.l1_ratio=0.1
 
+        '''
         if self.l1_penalty + self.l2_penalty != 0:
             self.l1_ratio = self.l1_penalty / (self.l1_penalty + self.l2_penalty)
         else:
             print("SLIM_ElasticNet: l1_penalty+l2_penalty cannot be equal to zero, setting the ratio l1/(l1+l2) to 1.0")
             self.l1_ratio = 1.0
+        '''
 
 
 
         # initialize the ElasticNet model
-        self.model = ElasticNet(alpha=1.0,
+        self.model = ElasticNet(alpha=0.0001,
                                 l1_ratio=self.l1_ratio,
                                 positive=self.positive_only,
                                 fit_intercept=False,

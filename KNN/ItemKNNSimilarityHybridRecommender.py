@@ -10,6 +10,10 @@ from Base.Recommender import Recommender
 from Base.Recommender_utils import check_matrix, similarityMatrixTopK
 from Base.SimilarityMatrixRecommender import SimilarityMatrixRecommender
 
+import numpy as np
+
+
+
 #Tunato miglior risultato ottenuto con alpha =0.8. Alpha moltiplica la similarity di CF
 #Tuning miglior risultato ottenuto con aplha=0.8 MAP': 0.08526621576298066
 
@@ -27,15 +31,12 @@ class ItemKNNSimilarityHybridRecommender(SimilarityMatrixRecommender, Recommende
         super(ItemKNNSimilarityHybridRecommender, self).__init__()
         
         #Get Similarity matrix (W_sparse) from Recommender1 and normalize its value for its max
-        Recommender_1.fit()
-        Similarity_1= Recommender_1.W_sparse/ Recommender_1.W_sparse.max()
-
         #Get Similarity matrix (W_sparse) from Recommender2 and normalize its value for its max
-        Recommender_2.fit()
+ 
+        Similarity_1= Recommender_1.W_sparse/ Recommender_1.W_sparse.max()
         Similarity_2= Recommender_2.W_sparse/ Recommender_2.W_sparse.max()
 
-
-     
+            
         if Similarity_1.shape != Similarity_2.shape:
             raise ValueError("ItemKNNSimilarityHybridRecommender: similarities have different size, S1 is {}, S2 is {}".format(
                 Similarity_1.shape, Similarity_2.shape

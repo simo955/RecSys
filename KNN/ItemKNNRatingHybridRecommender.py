@@ -23,18 +23,24 @@ class ItemKNNRatingHybridRecommender(SimilarityMatrixRecommender, Recommender):
     RECOMMENDER_NAME = "ItemKNNRatingHybridRecommender"
 
 
-    def __init__(self, URM_train, Recommender_1, Recommender_2, userID, sparse_weights=True):
+    def __init__(self, URM_train, Recommender_1, Recommender_2, userID, norm="classic",sparse_weights=True):
         super(ItemKNNRatingHybridRecommender, self).__init__()
         
         #Get Similarity matrix (W_sparse) from Recommender1 and normalize its value for its max
-        Recommender_1.fit()
-        ratingsMatrix1=np.asmatrix(Recommender_1.recommendBatch(userID))
-        ratingsMatrix1= ratingsMatrix1/ratingsMatrix1.max()
-
+        ratingsMatrix1=Recommender_1.recommendBatch(userID)
         #Get Similarity matrix (W_sparse) from Recommender2 and normalize its value for its max
-        Recommender_2.fit()
-        ratingsMatrix2=np.asmatrix(Recommender_2.recommendBatch(userID))
-        ratingsMatrix2= ratingsMatrix2/ratingsMatrix2.max()
+        ratingsMatrix2=Recommender_2.recommendBatch(userID)
+   
+        if norm == "classic":
+            ratingsMatrix1=np.asmatrix(ratingsMatrix1/ratingsMatrix1.max())
+            ratingsMatrix2=np.asmatrix(ratingsMatrix2/ratingsMatrix2.max())
+        if norm == "XX":
+            vectorMax1=ratingsMatrix1.max(axis=1)
+            ratingsMatrix1=np.asmatrix(ratingsMatrix1/vectorMax1[:,None])
+            
+            vectorMax2=ratingsMatrix2.max(axis=1)
+            ratingsMatrix2=np.asmatrix(ratingsMatrix2/vectorMax2[:,None])
+
 
         # CSR is faster during evaluation
         self.RatingsMatrix1 = sparse.csr_matrix(ratingsMatrix1) 
@@ -43,11 +49,15 @@ class ItemKNNRatingHybridRecommender(SimilarityMatrixRecommender, Recommender):
         self.URM_train = check_matrix(URM_train.copy(), 'csr')
 
         self.sparse_weights = sparse_weights
+        
+        
+       #creata cosi che sia facile tunare modificando i valori di alpha
+    def fit(self, alpha = 0.5 ):            
+        self.ratingsMatrix = (self.RatingsMatrix1*alpha + self.RatingsMatrix2*(1-alpha)).toarray()
+        
 
 
-
-    def recommend(self, user_id_array, alpha=0.5,cutoff = 10, remove_seen_flag=True, remove_top_pop_flag = False, remove_CustomItems_flag = False):
-        print("PERSONAL RECOMMENDER1")
+    def recommend(self, user_id_array, cutoff = 10, remove_seen_flag=True, remove_top_pop_flag = False, remove_CustomItems_flag = False):
         
 
          # If is a scalar transform it in a 1-cell array
@@ -61,7 +71,10 @@ class ItemKNNRatingHybridRecommender(SimilarityMatrixRecommender, Recommender):
         if cutoff is None:
             cutoff = self.URM_train.shape[1] - 1       
         
-        scores_batch = (self.RatingsMatrix1*alpha + self.RatingsMatrix2*(1-alpha)).toarray()
+        user_profile = self.ratingsMatrix[user_id_array]
+        scores_batch = user_profile
+
+
 
 
         # if self.normalize:
@@ -98,7 +111,6 @@ class ItemKNNRatingHybridRecommender(SimilarityMatrixRecommender, Recommender):
 
         # relevant_items_partition is block_size x cutoff
         relevant_items_partition = (-scores_batch).argpartition(cutoff, axis=1)[:,0:cutoff]
-        print("PERSONAL RECOMMENDER2")
 
 
  
@@ -108,7 +120,6 @@ class ItemKNNRatingHybridRecommender(SimilarityMatrixRecommender, Recommender):
         relevant_items_partition_original_value = scores_batch[np.arange(scores_batch.shape[0])[:, None], relevant_items_partition]
         relevant_items_partition_sorting = np.argsort(-relevant_items_partition_original_value, axis=1)
         ranking = relevant_items_partition[np.arange(relevant_items_partition.shape[0])[:, None], relevant_items_partition_sorting]
-        print("PERSONAL RECOMMENDER1")
 
 
 
@@ -118,6 +129,9 @@ class ItemKNNRatingHybridRecommender(SimilarityMatrixRecommender, Recommender):
         if single_user:
             ranking_list = ranking_list[0]
         
+        print("PERSONAL RECOMMENDER2")
+
+
         return ranking_list
         
 

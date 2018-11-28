@@ -38,8 +38,8 @@ from ParameterTuning.AbstractClassSearch import DictionaryKeys
 def run_KNNCFRecommender_on_similarity_type(similarity_type, parameterSearch, URM_train, n_cases, output_root_path, metric_to_optimize):
 
     hyperparamethers_range_dictionary = {}
-    hyperparamethers_range_dictionary["topK"] = [5, 10, 20, 50, 100, 150, 200, 300, 400, 500, 600, 700, 800]
-    hyperparamethers_range_dictionary["shrink"] = [0, 10, 50, 100, 200, 300, 500, 1000]
+    hyperparamethers_range_dictionary["topK"] = [600, 10, 20, 50, 100, 150, 200, 300, 400, 500, 600, 700, 800]
+    hyperparamethers_range_dictionary["shrink"] = [10,  50, 100, 200, 300, 500, 1000]
     hyperparamethers_range_dictionary["similarity"] = [similarity_type]
     hyperparamethers_range_dictionary["normalize"] = [True, False]
 
@@ -450,7 +450,6 @@ from functools import partial
 
 
 
-from data.Movielens_10M.Movielens10MReader import Movielens10MReader
 
 
 
@@ -466,13 +465,12 @@ def read_data_split_and_search():
         - A _best_result_test file which contains a dictionary with the results, on the test set, of the best solution chosen using the validation set
     """
 
-
-
-    dataReader = Movielens10MReader()
-
-    URM_train = dataReader.get_URM_train()
-    URM_validation = dataReader.get_URM_validation()
-    URM_test = dataReader.get_URM_test()
+    import traceback, os
+    import scipy.sparse
+    URM_all = scipy.sparse.load_npz('URM_all_matrix.npz')
+    ICM_all = scipy.sparse.load_npz('ICM_all_matrix.npz')
+    URM_train = scipy.sparse.load_npz('URM_train_matrix.npz')
+    URM_test = scipy.sparse.load_npz('URM_test_matrix.npz')
 
     output_root_path = "result_experiments/"
 
@@ -488,17 +486,17 @@ def read_data_split_and_search():
 
 
     collaborative_algorithm_list = [
-       Random,
-        TopPop,
-        P3alphaRecommender,
-        RP3betaRecommender,
+       #Random,
+        #TopPop,
+        #P3alphaRecommender,
+        #RP3betaRecommender,
         ItemKNNCFRecommender,
-        UserKNNCFRecommender,
-        MatrixFactorization_BPR_Cython,
-        MatrixFactorization_FunkSVD_Cython,
-        PureSVDRecommender,
-        SLIM_BPR_Cython,
-        SLIMElasticNetRecommender
+        #UserKNNCFRecommender,
+        #MatrixFactorization_BPR_Cython,
+        #MatrixFactorization_FunkSVD_Cython,
+        #PureSVDRecommender,
+        #SLIM_BPR_Cython,
+        #SLIMElasticNetRecommender
     ]
 
 
@@ -507,7 +505,7 @@ def read_data_split_and_search():
     from ParameterTuning.AbstractClassSearch import EvaluatorWrapper
     from Base.Evaluation.Evaluator import SequentialEvaluator
 
-    evaluator_validation_earlystopping = SequentialEvaluator(URM_validation, cutoff_list=[5])
+    evaluator_validation_earlystopping = SequentialEvaluator(URM_test, cutoff_list=[5])
     evaluator_test = SequentialEvaluator(URM_test, cutoff_list=[5, 10])
 
 
