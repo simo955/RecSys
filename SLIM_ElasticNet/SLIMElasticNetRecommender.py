@@ -47,13 +47,13 @@ class SLIMElasticNetRecommender(SimilarityMatrixRecommender, Recommender):
         )
 
 
-    def fit(self, topK= 400,  positive_only=True):
+    def fit(self, topK= 400, l1_ratio=0.1, positive_only=True):
 
         #self.l1_penalty = l1_penalty
         #self.l2_penalty = l2_penalty
         self.positive_only = positive_only
         self.topK = topK
-        self.l1_ratio=0.1
+        self.l1_ratio=l1_ratio
 
         '''
         if self.l1_penalty + self.l2_penalty != 0:
