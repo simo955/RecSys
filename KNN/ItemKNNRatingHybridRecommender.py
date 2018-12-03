@@ -128,9 +128,6 @@ class ItemKNNRatingHybridRecommender(SimilarityMatrixRecommender, Recommender):
         # Return single list for one user, instead of list of lists
         if single_user:
             ranking_list = ranking_list[0]
-        
-        print("PERSONAL RECOMMENDER2")
-
 
         return ranking_list
         

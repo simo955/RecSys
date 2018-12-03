@@ -1,0 +1,1 @@
+On recommender <class 'SLIM_ElasticNet.SLIMElasticNetRecommender.SLIMElasticNetRecommender'> Exception Input contains NaN, infinity or a value too large for dtype('float64').

@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on 22/11/17
-
-@author: Maurizio Ferrari Dacrema
-"""
-
 from Base.NonPersonalizedRecommender import TopPop, Random
 from KNN.UserKNNCFRecommender import UserKNNCFRecommender
 from KNN.ItemKNNCFRecommender import ItemKNNCFRecommender
@@ -34,12 +26,21 @@ from Utils.PoolWithSubprocess import PoolWithSubprocess
 from ParameterTuning.AbstractClassSearch import DictionaryKeys
 
 
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on 22/11/17
+
+@author: Maurizio Ferrari Dacrema
+"""
+
+
 
 def run_KNNCFRecommender_on_similarity_type(similarity_type, parameterSearch, URM_train, n_cases, output_root_path, metric_to_optimize):
 
     hyperparamethers_range_dictionary = {}
-    hyperparamethers_range_dictionary["topK"] = [600, 10, 20, 50, 100, 150, 200, 300, 400, 500, 600, 700, 800]
-    hyperparamethers_range_dictionary["shrink"] = [10,  50, 100, 200, 300, 500, 1000]
+    hyperparamethers_range_dictionary["topK"] = [5, 10, 20, 50, 100, 150, 200, 300, 400, 500, 600, 700, 800]
+    hyperparamethers_range_dictionary["shrink"] = [0, 10, 50, 100, 200, 300, 500, 1000]
     hyperparamethers_range_dictionary["similarity"] = [similarity_type]
     hyperparamethers_range_dictionary["normalize"] = [True, False]
 
@@ -382,11 +383,11 @@ def runParameterSearch_Collaborative(recommender_class, URM_train, metric_to_opt
         if recommender_class is SLIM_BPR_Cython:
 
             hyperparamethers_range_dictionary = {}
-            hyperparamethers_range_dictionary["topK"] = [5, 10, 20, 50, 100, 150, 200, 300, 400, 500, 600, 700, 800]
-            #hyperparamethers_range_dictionary["epochs"] = [1, 5, 10, 20, 30, 50, 70, 90, 110]
+            hyperparamethers_range_dictionary["topK"] = [10, 50, 100, 200, 500, 800]
+            hyperparamethers_range_dictionary["epochs"] = [5,10, 30, 50, 70, 110]
             hyperparamethers_range_dictionary["sgd_mode"] = ["adagrad", "adam"]
-            hyperparamethers_range_dictionary["lambda_i"] = [0.0, 1e-3, 1e-6, 1e-9]
-            hyperparamethers_range_dictionary["lambda_j"] = [0.0, 1e-3, 1e-6, 1e-9]
+            hyperparamethers_range_dictionary["lambda_i"] = [0.0, 1e-2,1e-3, 1e-6, 1e-9]
+            hyperparamethers_range_dictionary["lambda_j"] = [0.0, 1e-2,1e-3, 1e-6, 1e-9]
 
             recommenderDictionary = {DictionaryKeys.CONSTRUCTOR_POSITIONAL_ARGS: [URM_train],
                                      DictionaryKeys.CONSTRUCTOR_KEYWORD_ARGS: {'train_with_sparse_weights':True, 'symmetric':True, 'positive_threshold':0},
@@ -403,9 +404,9 @@ def runParameterSearch_Collaborative(recommender_class, URM_train, metric_to_opt
         if recommender_class is SLIMElasticNetRecommender:
 
             hyperparamethers_range_dictionary = {}
-            hyperparamethers_range_dictionary["topK"] = [5, 10, 20, 50, 100, 150, 200, 300, 400, 500, 600, 700, 800]
-            hyperparamethers_range_dictionary["l1_penalty"] = [1.0, 0.0, 1e-2, 1e-4, 1e-6]
-            hyperparamethers_range_dictionary["l2_penalty"] = [100.0, 1.0, 0.0, 1e-2, 1e-4, 1e-6]
+            hyperparamethers_range_dictionary["topK"] = [20, 50, 100, 300,800]
+            hyperparamethers_range_dictionary["l1_penalty"] = [1e-4, 1e-5, 1e-6,1e-7]
+            hyperparamethers_range_dictionary["l2_penalty"] = [1.0, 0.0, 0.01, 1e-2, 1e-3]
 
             recommenderDictionary = {DictionaryKeys.CONSTRUCTOR_POSITIONAL_ARGS: [URM_train],
                                      DictionaryKeys.CONSTRUCTOR_KEYWORD_ARGS: {},
@@ -436,26 +437,14 @@ def runParameterSearch_Collaborative(recommender_class, URM_train, metric_to_opt
         error_file.close()
 
 
-
-
-
-
-
-
-
-
-
 import os, multiprocessing
 from functools import partial
 
 
-
-
-
-
 def read_data_split_and_search():
     """
-    This function provides a simple example on how to tune parameters of a given algorithm
+    This function pr
+    ovides a simple example on how to tune parameters of a given algorithm
 
     The BayesianSearch object will save:
         - A .txt file with all the cases explored and the recommendation quality
@@ -467,69 +456,51 @@ def read_data_split_and_search():
 
     import traceback, os
     import scipy.sparse
+
     URM_all = scipy.sparse.load_npz('URM_all_matrix.npz')
     ICM_all = scipy.sparse.load_npz('ICM_all_matrix.npz')
     URM_train = scipy.sparse.load_npz('URM_train_matrix.npz')
     URM_test = scipy.sparse.load_npz('URM_test_matrix.npz')
+    URM_validation = URM_test
 
     output_root_path = "result_experiments/"
-
 
     # If directory does not exist, create
     if not os.path.exists(output_root_path):
         os.makedirs(output_root_path)
 
-
-
-
-
-
-
     collaborative_algorithm_list = [
-       #Random,
-        #TopPop,
-        #P3alphaRecommender,
-        #RP3betaRecommender,
-        ItemKNNCFRecommender,
-        #UserKNNCFRecommender,
-        #MatrixFactorization_BPR_Cython,
-        #MatrixFactorization_FunkSVD_Cython,
-        #PureSVDRecommender,
-        #SLIM_BPR_Cython,
+        # SLIM_BPR_Cython,
+        # TopPop,
+        # P3alphaRecommender,
+        # RP3betaRecommender,
+        ItemKNNCFRecommender
+        # UserKNNCFRecommender,
+        # MatrixFactorization_BPR_Cython,
+        # MatrixFactorization_FunkSVD_Cython,
+        # PureSVDRecommender,
         #SLIMElasticNetRecommender
     ]
-
-
-
 
     from ParameterTuning.AbstractClassSearch import EvaluatorWrapper
     from Base.Evaluation.Evaluator import SequentialEvaluator
 
-    evaluator_validation_earlystopping = SequentialEvaluator(URM_test, cutoff_list=[5])
-    evaluator_test = SequentialEvaluator(URM_test, cutoff_list=[5, 10])
-
+    evaluator_validation_earlystopping = SequentialEvaluator(URM_validation, cutoff_list=[10])
+    evaluator_test = SequentialEvaluator(URM_test, cutoff_list=[10])
 
     evaluator_validation = EvaluatorWrapper(evaluator_validation_earlystopping)
     evaluator_test = EvaluatorWrapper(evaluator_test)
 
-
-
     runParameterSearch_Collaborative_partial = partial(runParameterSearch_Collaborative,
-                                                       URM_train = URM_train,
-                                                       metric_to_optimize = "MAP",
-                                                       evaluator_validation_earlystopping = evaluator_validation_earlystopping,
-                                                       evaluator_validation = evaluator_validation,
-                                                       evaluator_test = evaluator_test,
+                                                       URM_train=URM_train,
+                                                       metric_to_optimize="MAP",
+                                                       evaluator_validation_earlystopping=evaluator_validation_earlystopping,
+                                                       evaluator_validation=evaluator_validation,
+                                                       evaluator_test=evaluator_test,
                                                        output_root_path=output_root_path)
-
-
-
-
 
     # pool = multiprocessing.Pool(processes=int(multiprocessing.cpu_count()), maxtasksperchild=1)
     # resultList = pool.map(runParameterSearch_Collaborative_partial, collaborative_algorithm_list)
-
-
 
     for recommender_class in collaborative_algorithm_list:
 
@@ -543,13 +514,8 @@ def read_data_split_and_search():
             traceback.print_exc()
 
 
-
-
-
-
-
-
 if __name__ == '__main__':
-
-
     read_data_split_and_search()
+
+
+
