@@ -17,14 +17,12 @@ from KNN.ItemKNNScoresHybridRecommender import ItemKNNScoresHybridRecommender
 from KNN.ItemKNNScoresHybridRecommender3 import ItemKNNScoresHybridRecommender3
 
 
+import traceback, os
 import scipy.sparse
-import pandas as pd
-import numpy as np
-
-URM_all = scipy.sparse.load_npz('URM_all_matrix.npz')
-ICM_all = scipy.sparse.load_npz('ICM_all_matrix.npz')
-URM_train = scipy.sparse.load_npz('URM_train_matrix.npz')
-URM_test = scipy.sparse.load_npz('URM_test_matrix.npz')
+URM_all = scipy.sparse.load_npz('./Matrix/URM_all_matrix.npz')
+ICM_all = scipy.sparse.load_npz('./Matrix/ICM_all_matrix.npz')
+URM_train = scipy.sparse.load_npz('./Matrix/URM_train_matrix.npz')
+URM_test = scipy.sparse.load_npz('./Matrix/URM_test_matrix.npz')
 #Load playlistsIDS
 data_playlists= pd.read_csv('all/train.csv',low_memory = False)
 userID=data_playlists.playlist_id.unique()

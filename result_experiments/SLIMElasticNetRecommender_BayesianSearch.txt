@@ -1,5 +1,0 @@
-BayesianSearch: Testing config: {'topK': 100, 'l1_penalty': 1e-05, 'l2_penalty': 0.001} - Exception fit() got an unexpected keyword argument 'l1_penalty'
-BayesianSearch: Testing config: {'topK': 300, 'l1_penalty': 1e-05, 'l2_penalty': 0.0} - Exception fit() got an unexpected keyword argument 'l1_penalty'
-BayesianSearch: Testing config: {'topK': 50, 'l1_penalty': 0.0001, 'l2_penalty': 0.01} - Exception fit() got an unexpected keyword argument 'l1_penalty'
-BayesianSearch: Testing config: {'topK': 50, 'l1_penalty': 1e-06, 'l2_penalty': 0.01} - Exception fit() got an unexpected keyword argument 'l1_penalty'
-BayesianSearch: Testing config: {'topK': 300, 'l1_penalty': 1e-06, 'l2_penalty': 0.001} - Exception fit() got an unexpected keyword argument 'l1_penalty'

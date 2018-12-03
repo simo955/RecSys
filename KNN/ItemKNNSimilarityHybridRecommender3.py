@@ -42,7 +42,6 @@ class ItemKNNSimilarityHybridRecommender3(SimilarityMatrixRecommender, Recommend
 
 
         self.URM_train = check_matrix(URM_train.copy(), 'csr')
-
         self.sparse_weights = sparse_weights
 
 

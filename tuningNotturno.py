@@ -52,7 +52,7 @@ SLIMELASTICrecommender.fit()
 CBFrecommender.fit()
 
 alpha=[0.1,0.2,0.4,0.5,0.6,0.7,0.8,0.9]
-SuperScores=ItemKNNSimilarityHybridRecommender(URM_train,SLIMrecommender,SLIMELASTICrecommender)
+SuperScores=ItemKNNScoresHybridRecommender(URM_train,SLIMrecommender,SLIMELASTICrecommender)
 for alp in alpha:
     print("XXXXXXXXXXXXXXXXXXXX alp={}".format(alp))
     SuperScores.fit(alpha=alp)
@@ -97,4 +97,4 @@ for a, b, c in alphaList:
     result = HRating3.evaluateRecommendations(URM_test)
     print("Recommender MAP is= {}".format(result["MAP"]))
 
-print ("Tuning per vedere se performa meglio scores o rating. I risultati possono già essere buoni perche gli algoritmi sono bene tunati")
+#tuning per capire come tunare super slim usando Scores, e per capire se è meglio la classe rating o quella scores

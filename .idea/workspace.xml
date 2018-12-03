@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="76a24104-a440-4494-8b31-334eacf5aebc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/KNN/ItemKNNScoresHybridRecommender3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/run_all_alghorithms-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/run_all_alghorithms-checkpoint.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KNN/ItemKNNRatingHybridRecommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/KNN/ItemKNNRatingHybridRecommender.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KNN/ItemKNNSimilarityHybridRecommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/KNN/ItemKNNSimilarityHybridRecommender.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KNN/ItemKNNSimilarityHybridRecommender3.py" beforeDir="false" afterPath="$PROJECT_DIR$/KNN/ItemKNNSimilarityHybridRecommender3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Practice 6 - MF.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SLIM_BPR/Cython/SLIM_BPR_Cython.py" beforeDir="false" afterPath="$PROJECT_DIR$/SLIM_BPR/Cython/SLIM_BPR_Cython.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SLIM_BPR/Cython/SLIM_BPR_Cython_Epoch.cpython-36m-darwin.so" beforeDir="false" afterPath="$PROJECT_DIR$/SLIM_BPR/Cython/SLIM_BPR_Cython_Epoch.cpython-36m-darwin.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SLIM_BPR/Cython/build/temp.macosx-10.7-x86_64-3.6/SLIM_BPR_Cython_Epoch.o" beforeDir="false" afterPath="$PROJECT_DIR$/SLIM_BPR/Cython/build/temp.macosx-10.7-x86_64-3.6/SLIM_BPR_Cython_Epoch.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_all_alghorithms-ForExperiments2-SimilarityHybrid.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/run_all_alghorithms-ForExperiments2-SimilarityHybrid.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_all_algorithms.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_all_algorithms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_parameter_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_parameter_search.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tuningNotturno.py" beforeDir="false" afterPath="$PROJECT_DIR$/tuningNotturno.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -56,12 +44,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="1436" />
+          <entry key="py" value="1437" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="1379" />
+          <entry key="Python" value="1380" />
           <entry key="Scratch" value="57" />
         </counts>
       </usages-collector>
@@ -69,32 +57,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tuningNotturno.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1055">
-              <caret line="100" lean-forward="true" selection-start-line="100" selection-end-line="100" />
+            <state relative-caret-position="107">
+              <caret line="54" column="42" selection-start-line="54" selection-start-column="42" selection-end-line="54" selection-end-column="42" />
               <folding>
                 <element signature="e#0#59#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SLIM_BPR/Cython/SLIM_BPR_Cython.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="35" column="41" lean-forward="true" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../RecSysExam/notebooks/Practice 4 - Cython.ipynb">
-          <provider selected="true" editor-type-id="ipnb-editor">
-            <state>
-              <selected id="9" />
             </state>
           </provider>
         </entry>
@@ -134,12 +104,12 @@
         <option value="$PROJECT_DIR$/tuningNotturno1.py" />
         <option value="$PROJECT_DIR$/KNN/ItemKNNSimilarityHybridRecommender3.py" />
         <option value="$PROJECT_DIR$/KNN/ItemKNNSimilarityHybridRecommender4.py" />
-        <option value="$PROJECT_DIR$/tuningNotturno.py" />
         <option value="$PROJECT_DIR$/../RecSysExam/notebooks/Practice 4 - Cython.ipynb" />
+        <option value="$PROJECT_DIR$/tuningNotturno.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="53" />
     <option name="y" value="23" />
     <option name="width" value="1387" />
@@ -329,14 +299,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="53" y="23" width="1387" height="877" extended-state="1" />
+    <frame x="53" y="23" width="1387" height="877" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49879518" visible="true" weight="0.17569546" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49879518" visible="true" weight="0.17569546" />
       <window_info id="Structure" order="1" sideWeight="0.50120485" side_tool="true" weight="0.23749119" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.09426752" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.50318474" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -495,13 +466,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tuningNotturno.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1055">
-          <caret line="100" lean-forward="true" selection-start-line="100" selection-end-line="100" />
-          <folding>
-            <element signature="e#0#59#0" expanded="true" />
-          </folding>
+    <entry file="file://$PROJECT_DIR$/../RecSysExam/notebooks/Practice 4 - Cython.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="9" />
         </state>
       </provider>
     </entry>
@@ -512,10 +480,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../RecSysExam/notebooks/Practice 4 - Cython.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="7" />
+    <entry file="file://$PROJECT_DIR$/tuningNotturno.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="54" column="42" selection-start-line="54" selection-start-column="42" selection-end-line="54" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#59#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
