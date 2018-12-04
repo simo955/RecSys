@@ -38,15 +38,49 @@ class ItemKNNScoresHybridRecommender(Recommender):
 
 
     def compute_score_hybrid(self, user_id_array):
-        
+        '''
+        versione standard normalizzazione
+        print("sd")
         item_weights_1 = self.Recommender_1.compute_item_score(user_id_array)
         item_weights_1 = item_weights_1/item_weights_1.max()
         
         item_weights_2 = self.Recommender_2.compute_item_score(user_id_array)
         item_weights_2 = item_weights_2/item_weights_2.max()
 
-
-
         item_weights = item_weights_1*self.alpha + item_weights_2*(1-self.alpha)
 
         return item_weights
+        
+        '''
+        
+        '''
+        normalizzazione l1
+        
+        print("l1")
+        item_weights_1 = self.Recommender_1.compute_item_score(user_id_array)
+        item_weights_1 = normalize(item_weights_1, norm="l1", axis=1, copy=True, return_norm=False)
+        item_weights_2 = self.Recommender_2.compute_item_score(user_id_array)
+        item_weights_2 = normalize(item_weights_2, norm="l1", axis=1, copy=True, return_norm=False)
+        
+        item_weights = item_weights_1*self.alpha + item_weights_2*(1-self.alpha)
+
+        return item_weights
+        '''
+        
+        
+        '''
+        normalizzazione l2
+        '''
+        print("l2")
+        item_weights_1 = self.Recommender_1.compute_item_score(user_id_array)
+        item_weights_1 = normalize(item_weights_1, norm="l2", axis=1, copy=True, return_norm=False)
+        item_weights_2 = self.Recommender_2.compute_item_score(user_id_array)
+        item_weights_2 = normalize(item_weights_2, norm="l2", axis=1, copy=True, return_norm=False)
+        
+        item_weights = item_weights_1*self.alpha + item_weights_2*(1-self.alpha)
+
+        return item_weights
+        
+        '''
+        '''
+        
