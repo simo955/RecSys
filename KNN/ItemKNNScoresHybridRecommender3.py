@@ -10,6 +10,9 @@ import numpy as np
 from Base.Recommender_utils import check_matrix, similarityMatrixTopK
 from Base.SimilarityMatrixRecommender import SimilarityMatrixRecommender
 from Base.Recommender import Recommender
+from sklearn.preprocessing import normalize
+
+
 
 
 class ItemKNNScoresHybridRecommender3(Recommender):
@@ -40,10 +43,8 @@ class ItemKNNScoresHybridRecommender3(Recommender):
 
     def compute_score_hybrid(self, user_id_array):
         
-        '''
-        versione standard normalizzazione
-        
-        print("sd")
+        #versione standard normalizzazione
+        #print("sd")
         
         item_weights_1 = self.Recommender_1.compute_item_score(user_id_array)
         item_weights_1 = item_weights_1 / item_weights_1.max()
@@ -58,7 +59,7 @@ class ItemKNNScoresHybridRecommender3(Recommender):
 
         return item_weights
     
-        '''
+
         
         '''
         versione l1 normalizzazione

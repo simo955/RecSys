@@ -27,13 +27,15 @@ class ItemKNNSimilarityHybridRecommender(SimilarityMatrixRecommender, Recommende
     RECOMMENDER_NAME = "ItemKNNSimilarityHybridRecommender"
     
 
-    def __init__(self, URM_train, Recommender_1, Recommender_2, sparse_weights=True):
+    def __init__(self, URM_train, Recommender_1, Recommender_2, norm="l2", sparse_weights=True):
         super(ItemKNNSimilarityHybridRecommender, self).__init__()
         
+        self.norm=norm
+        
         #Get Similarity matrix (W_sparse) from Recommender1 and normalize its with norm2
-        Similarity_1  = normalize(Recommender_1.W_sparse, axis=1, copy=True, return_norm=False)
+        Similarity_1  = normalize(Recommender_1.W_sparse, norm=self.norm, axis=1, copy=True, return_norm=False)
         #Get Similarity matrix (W_sparse) from Recommender2 and normalize its value for its max
-        Similarity_2  = normalize(Recommender_2.W_sparse, axis=1, copy=True, return_norm=False)
+        Similarity_2  = normalize(Recommender_2.W_sparse, norm=self.norm, axis=1, copy=True, return_norm=False)
             
         if Similarity_1.shape != Similarity_2.shape:
             raise ValueError("ItemKNNSimilarityHybridRecommender: similarities have different size, S1 is {}, S2 is {}".format(

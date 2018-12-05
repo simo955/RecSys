@@ -44,9 +44,8 @@ class ItemKNNScoresHybridRecommender4(Recommender):
         
 
     def compute_score_hybrid(self, user_id_array):
-        
-        '''
-        versione standard della normalizzazione
+
+        #versione standard della normalizzazione
         
         item_weights_1 = self.Recommender_1.compute_item_score(user_id_array)
         item_weights_1 = item_weights_1 / item_weights_1.max()
@@ -62,11 +61,11 @@ class ItemKNNScoresHybridRecommender4(Recommender):
         item_weights = item_weights_1 * self.alpha + item_weights_2 * (self.beta)+ item_weights_3 * (self.gamma)+ item_weights_4 * (self.delta)
         
         return item_weights
-        '''
+     
         
-        '''
+'''
         versione l1 della normalizzazione
-        '''
+     
         
         print("l1")
         item_weights_1 = self.Recommender_1.compute_item_score(user_id_array)
@@ -82,8 +81,8 @@ class ItemKNNScoresHybridRecommender4(Recommender):
         return item_weights
     
         '''
-        
-        versione l2 della normalizzazione 
+'''
+        #versione l2 della normalizzazione 
         
         
         
@@ -102,6 +101,6 @@ class ItemKNNScoresHybridRecommender4(Recommender):
         item_weights = item_weights_1 * self.alpha + item_weights_2 * (self.beta)+ item_weights_3 * (self.gamma)+ item_weights_4 * (self.delta)
         return item_weights
     
-        '''
+'''
         
     

@@ -13,6 +13,8 @@ from Base.Recommender import Recommender
 from sklearn.preprocessing import normalize
 
 
+
+
 class ItemKNNScoresHybridRecommender5(Recommender):
     """ ItemKNNScoresHybridRecommender5
     Hybrid of two prediction scores R = R1*alpha + R2*(1-alpha)
@@ -47,8 +49,8 @@ class ItemKNNScoresHybridRecommender5(Recommender):
 
     def compute_score_hybrid(self, user_id_array):
         
-        '''
-        versione standard della normalizzazione
+        
+        #versione standard della normalizzazione
         
         item_weights_1 = self.Recommender_1.compute_item_score(user_id_array)
         item_weights_1 = item_weights_1 / item_weights_1.max()
@@ -68,11 +70,11 @@ class ItemKNNScoresHybridRecommender5(Recommender):
         item_weights = item_weights_1 * self.alpha + item_weights_2 * (self.beta)+ item_weights_3 * (self.gamma)+ item_weights_4 * (self.delta)+ item_weights_5 * (self.epsilon)
         
         return item_weights
-        '''
+        
         
         '''
         versione l1 della normalizzazione
-        '''
+        
         
         print("l1")
         item_weights_1 = self.Recommender_1.compute_item_score(user_id_array)
@@ -91,11 +93,11 @@ class ItemKNNScoresHybridRecommender5(Recommender):
     
         '''
         
-        versione l2 della normalizzazione 
+        #versione l2 della normalizzazione 
         
         
         
-        
+        '''
         print("l2")
         
         item_weights_1 = self.Recommender_1.compute_item_score(user_id_array)

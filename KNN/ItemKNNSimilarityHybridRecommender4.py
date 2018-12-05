@@ -22,13 +22,15 @@ class ItemKNNSimilarityHybridRecommender4(SimilarityMatrixRecommender, Recommend
     RECOMMENDER_NAME = "ItemKNNSimilarityHybridRecommender3"
 
 
-    def __init__(self, URM_train, Recommender_1, Recommender_2, Recommender_3,Recommender_4, sparse_weights=True):
+    def __init__(self, URM_train, Recommender_1, Recommender_2, Recommender_3,Recommender_4,norm="l2", sparse_weights=True):
         super(ItemKNNSimilarityHybridRecommender4, self).__init__()
 
-        Similarity_1  = normalize(Recommender_1.W_sparse, axis=1, copy=True, return_norm=False)
-        Similarity_2  = normalize(Recommender_2.W_sparse, axis=1, copy=True, return_norm=False)
-        Similarity_3  = normalize(Recommender_3.W_sparse, axis=1, copy=True, return_norm=False)
-        Similarity_4 = normalize(Recommender_4.W_sparse, axis=1, copy=True, return_norm=False)
+        self.norm=norm
+        
+        Similarity_1  = normalize(Recommender_1.W_sparse, norm= self.norm, axis=1, copy=True, return_norm=False)
+        Similarity_2  = normalize(Recommender_2.W_sparse, norm= self.norm, axis=1, copy=True, return_norm=False)
+        Similarity_3  = normalize(Recommender_3.W_sparse, norm= self.norm, axis=1, copy=True, return_norm=False)
+        Similarity_4  = normalize(Recommender_4.W_sparse, norm= self.norm, axis=1, copy=True, return_norm=False)
 
      
         if Similarity_1.shape != Similarity_2.shape or Similarity_1.shape != Similarity_3.shape or Similarity_1.shape != Similarity_4.shape or Similarity_2.shape != Similarity_3.shape or Similarity_2.shape != Similarity_4.shape or Similarity_3.shape != Similarity_4.shape :
