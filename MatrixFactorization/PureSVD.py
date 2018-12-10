@@ -28,7 +28,9 @@ class PureSVDRecommender(Recommender):
         self.compute_item_score = self.compute_score_SVD
 
 
-    def fit(self, num_factors=100):
+    def fit(self, num_factors=100,n_iter=5):
+        
+        self.n_iter=n_iter
 
         from sklearn.utils.extmath import randomized_svd
 
@@ -36,7 +38,7 @@ class PureSVDRecommender(Recommender):
 
         self.U, self.Sigma, self.VT = randomized_svd(self.URM_train,
                                       n_components=num_factors,
-                                      #n_iter=5,
+                                      n_iter= self.n_iter,
                                       random_state=None)
 
         self.s_Vt = sps.diags(self.Sigma)*self.VT

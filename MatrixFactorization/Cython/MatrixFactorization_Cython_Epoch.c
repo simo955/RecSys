@@ -4758,7 +4758,7 @@ static PyObject *__pyx_pf_32MatrixFactorization_Cython_Epoch_32MatrixFactorizati
  *             prediction = 0.0
  * 
  *             for index in range(self.n_factors):             # <<<<<<<<<<<<<<
- *                 prediction = self.USER_factors[sample.user, index] * self.ITEM_factors[sample.item, index]
+ *                 prediction += self.USER_factors[sample.user, index] * self.ITEM_factors[sample.item, index]
  * 
  */
     __pyx_t_8 = __pyx_v_self->n_factors;
@@ -4769,7 +4769,7 @@ static PyObject *__pyx_pf_32MatrixFactorization_Cython_Epoch_32MatrixFactorizati
       /* "MatrixFactorization_Cython_Epoch.pyx":221
  * 
  *             for index in range(self.n_factors):
- *                 prediction = self.USER_factors[sample.user, index] * self.ITEM_factors[sample.item, index]             # <<<<<<<<<<<<<<
+ *                 prediction += self.USER_factors[sample.user, index] * self.ITEM_factors[sample.item, index]             # <<<<<<<<<<<<<<
  * 
  *             gradient = sample.rating - prediction
  */
@@ -4805,11 +4805,11 @@ static PyObject *__pyx_pf_32MatrixFactorization_Cython_Epoch_32MatrixFactorizati
         __Pyx_RaiseBufferIndexError(__pyx_t_13);
         __PYX_ERR(0, 221, __pyx_L1_error)
       }
-      __pyx_v_prediction = ((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_self->USER_factors.data + __pyx_t_11 * __pyx_v_self->USER_factors.strides[0]) ) + __pyx_t_12 * __pyx_v_self->USER_factors.strides[1]) ))) * (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_self->ITEM_factors.data + __pyx_t_14 * __pyx_v_self->ITEM_factors.strides[0]) ) + __pyx_t_15 * __pyx_v_self->ITEM_factors.strides[1]) ))));
+      __pyx_v_prediction = (__pyx_v_prediction + ((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_self->USER_factors.data + __pyx_t_11 * __pyx_v_self->USER_factors.strides[0]) ) + __pyx_t_12 * __pyx_v_self->USER_factors.strides[1]) ))) * (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_self->ITEM_factors.data + __pyx_t_14 * __pyx_v_self->ITEM_factors.strides[0]) ) + __pyx_t_15 * __pyx_v_self->ITEM_factors.strides[1]) )))));
     }
 
     /* "MatrixFactorization_Cython_Epoch.pyx":223
- *                 prediction = self.USER_factors[sample.user, index] * self.ITEM_factors[sample.item, index]
+ *                 prediction += self.USER_factors[sample.user, index] * self.ITEM_factors[sample.item, index]
  * 
  *             gradient = sample.rating - prediction             # <<<<<<<<<<<<<<
  *             cumulative_loss += gradient**2
@@ -5777,7 +5777,7 @@ static PyObject *__pyx_pf_32MatrixFactorization_Cython_Epoch_32MatrixFactorizati
  *                 item_id = self.URM_train_indices[item_index]
  * 
  *                 for factor_index in range(self.n_factors):             # <<<<<<<<<<<<<<
- *                     user_factors_accumulated[factor_index] = self.USER_factors[item_id, factor_index]
+ *                     user_factors_accumulated[factor_index] += self.USER_factors[item_id, factor_index]
  * 
  */
       __pyx_t_11 = __pyx_v_self->n_factors;
@@ -5788,7 +5788,7 @@ static PyObject *__pyx_pf_32MatrixFactorization_Cython_Epoch_32MatrixFactorizati
         /* "MatrixFactorization_Cython_Epoch.pyx":311
  * 
  *                 for factor_index in range(self.n_factors):
- *                     user_factors_accumulated[factor_index] = self.USER_factors[item_id, factor_index]             # <<<<<<<<<<<<<<
+ *                     user_factors_accumulated[factor_index] += self.USER_factors[item_id, factor_index]             # <<<<<<<<<<<<<<
  * 
  * 
  */
@@ -5818,14 +5818,14 @@ static PyObject *__pyx_pf_32MatrixFactorization_Cython_Epoch_32MatrixFactorizati
           __Pyx_RaiseBufferIndexError(__pyx_t_15);
           __PYX_ERR(0, 311, __pyx_L1_error)
         }
-        *((double *) ( /* dim=0 */ (__pyx_v_user_factors_accumulated.data + __pyx_t_24 * __pyx_v_user_factors_accumulated.strides[0]) )) = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_self->USER_factors.data + __pyx_t_22 * __pyx_v_self->USER_factors.strides[0]) ) + __pyx_t_23 * __pyx_v_self->USER_factors.strides[1]) )));
+        *((double *) ( /* dim=0 */ (__pyx_v_user_factors_accumulated.data + __pyx_t_24 * __pyx_v_user_factors_accumulated.strides[0]) )) += (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_self->USER_factors.data + __pyx_t_22 * __pyx_v_self->USER_factors.strides[0]) ) + __pyx_t_23 * __pyx_v_self->USER_factors.strides[1]) )));
       }
     }
 
     /* "MatrixFactorization_Cython_Epoch.pyx":314
  * 
  * 
- *             denominator = sqrt(end_pos_seen_items-start_pos_seen_items)             # <<<<<<<<<<<<<<
+ *             denominator = sqrt(end_pos_seen_items - start_pos_seen_items)             # <<<<<<<<<<<<<<
  * 
  * 
  */
@@ -5867,7 +5867,7 @@ static PyObject *__pyx_pf_32MatrixFactorization_Cython_Epoch_32MatrixFactorizati
  * 
  *             # Compute prediction
  *             for factor_index in range(self.n_factors):             # <<<<<<<<<<<<<<
- *                 prediction = user_factors_accumulated[factor_index] * self.ITEM_factors[sample.item, factor_index]
+ *                 prediction += user_factors_accumulated[factor_index] * self.ITEM_factors[sample.item, factor_index]
  *                 if np.isnan(prediction):
  */
     __pyx_t_11 = __pyx_v_self->n_factors;
@@ -5878,7 +5878,7 @@ static PyObject *__pyx_pf_32MatrixFactorization_Cython_Epoch_32MatrixFactorizati
       /* "MatrixFactorization_Cython_Epoch.pyx":330
  *             # Compute prediction
  *             for factor_index in range(self.n_factors):
- *                 prediction = user_factors_accumulated[factor_index] * self.ITEM_factors[sample.item, factor_index]             # <<<<<<<<<<<<<<
+ *                 prediction += user_factors_accumulated[factor_index] * self.ITEM_factors[sample.item, factor_index]             # <<<<<<<<<<<<<<
  *                 if np.isnan(prediction):
  *                     print("user_factors_accumulated[factor_index] " + str(user_factors_accumulated[factor_index]))
  */
@@ -5908,11 +5908,11 @@ static PyObject *__pyx_pf_32MatrixFactorization_Cython_Epoch_32MatrixFactorizati
         __Pyx_RaiseBufferIndexError(__pyx_t_15);
         __PYX_ERR(0, 330, __pyx_L1_error)
       }
-      __pyx_v_prediction = ((*((double *) ( /* dim=0 */ (__pyx_v_user_factors_accumulated.data + __pyx_t_26 * __pyx_v_user_factors_accumulated.strides[0]) ))) * (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_self->ITEM_factors.data + __pyx_t_27 * __pyx_v_self->ITEM_factors.strides[0]) ) + __pyx_t_28 * __pyx_v_self->ITEM_factors.strides[1]) ))));
+      __pyx_v_prediction = (__pyx_v_prediction + ((*((double *) ( /* dim=0 */ (__pyx_v_user_factors_accumulated.data + __pyx_t_26 * __pyx_v_user_factors_accumulated.strides[0]) ))) * (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_self->ITEM_factors.data + __pyx_t_27 * __pyx_v_self->ITEM_factors.strides[0]) ) + __pyx_t_28 * __pyx_v_self->ITEM_factors.strides[1]) )))));
 
       /* "MatrixFactorization_Cython_Epoch.pyx":331
  *             for factor_index in range(self.n_factors):
- *                 prediction = user_factors_accumulated[factor_index] * self.ITEM_factors[sample.item, factor_index]
+ *                 prediction += user_factors_accumulated[factor_index] * self.ITEM_factors[sample.item, factor_index]
  *                 if np.isnan(prediction):             # <<<<<<<<<<<<<<
  *                     print("user_factors_accumulated[factor_index] " + str(user_factors_accumulated[factor_index]))
  *                     print("self.ITEM_factors[sample.item, factor_index] " + str(self.ITEM_factors[sample.item, factor_index]))
@@ -5945,7 +5945,7 @@ static PyObject *__pyx_pf_32MatrixFactorization_Cython_Epoch_32MatrixFactorizati
       if (__pyx_t_29) {
 
         /* "MatrixFactorization_Cython_Epoch.pyx":332
- *                 prediction = user_factors_accumulated[factor_index] * self.ITEM_factors[sample.item, factor_index]
+ *                 prediction += user_factors_accumulated[factor_index] * self.ITEM_factors[sample.item, factor_index]
  *                 if np.isnan(prediction):
  *                     print("user_factors_accumulated[factor_index] " + str(user_factors_accumulated[factor_index]))             # <<<<<<<<<<<<<<
  *                     print("self.ITEM_factors[sample.item, factor_index] " + str(self.ITEM_factors[sample.item, factor_index]))
@@ -6008,7 +6008,7 @@ static PyObject *__pyx_pf_32MatrixFactorization_Cython_Epoch_32MatrixFactorizati
 
         /* "MatrixFactorization_Cython_Epoch.pyx":331
  *             for factor_index in range(self.n_factors):
- *                 prediction = user_factors_accumulated[factor_index] * self.ITEM_factors[sample.item, factor_index]
+ *                 prediction += user_factors_accumulated[factor_index] * self.ITEM_factors[sample.item, factor_index]
  *                 if np.isnan(prediction):             # <<<<<<<<<<<<<<
  *                     print("user_factors_accumulated[factor_index] " + str(user_factors_accumulated[factor_index]))
  *                     print("self.ITEM_factors[sample.item, factor_index] " + str(self.ITEM_factors[sample.item, factor_index]))
@@ -7074,7 +7074,7 @@ static PyObject *__pyx_pf_32MatrixFactorization_Cython_Epoch_32MatrixFactorizati
  *             x_uij = 0.0
  * 
  *             for index in range(self.n_factors):             # <<<<<<<<<<<<<<
- *                 x_uij = self.USER_factors[u,index] * (self.ITEM_factors[i,index] - self.ITEM_factors[j,index])
+ *                 x_uij += self.USER_factors[u,index] * (self.ITEM_factors[i,index] - self.ITEM_factors[j,index])
  * 
  */
     __pyx_t_8 = __pyx_v_self->n_factors;
@@ -7085,7 +7085,7 @@ static PyObject *__pyx_pf_32MatrixFactorization_Cython_Epoch_32MatrixFactorizati
       /* "MatrixFactorization_Cython_Epoch.pyx":439
  * 
  *             for index in range(self.n_factors):
- *                 x_uij = self.USER_factors[u,index] * (self.ITEM_factors[i,index] - self.ITEM_factors[j,index])             # <<<<<<<<<<<<<<
+ *                 x_uij += self.USER_factors[u,index] * (self.ITEM_factors[i,index] - self.ITEM_factors[j,index])             # <<<<<<<<<<<<<<
  * 
  *             # Use gradient of log(sigm(-x_uij))
  */
@@ -7137,7 +7137,7 @@ static PyObject *__pyx_pf_32MatrixFactorization_Cython_Epoch_32MatrixFactorizati
         __Pyx_RaiseBufferIndexError(__pyx_t_12);
         __PYX_ERR(0, 439, __pyx_L1_error)
       }
-      __pyx_v_x_uij = ((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_self->USER_factors.data + __pyx_t_10 * __pyx_v_self->USER_factors.strides[0]) ) + __pyx_t_11 * __pyx_v_self->USER_factors.strides[1]) ))) * ((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_self->ITEM_factors.data + __pyx_t_13 * __pyx_v_self->ITEM_factors.strides[0]) ) + __pyx_t_14 * __pyx_v_self->ITEM_factors.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_self->ITEM_factors.data + __pyx_t_15 * __pyx_v_self->ITEM_factors.strides[0]) ) + __pyx_t_16 * __pyx_v_self->ITEM_factors.strides[1]) )))));
+      __pyx_v_x_uij = (__pyx_v_x_uij + ((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_self->USER_factors.data + __pyx_t_10 * __pyx_v_self->USER_factors.strides[0]) ) + __pyx_t_11 * __pyx_v_self->USER_factors.strides[1]) ))) * ((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_self->ITEM_factors.data + __pyx_t_13 * __pyx_v_self->ITEM_factors.strides[0]) ) + __pyx_t_14 * __pyx_v_self->ITEM_factors.strides[1]) ))) - (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_self->ITEM_factors.data + __pyx_t_15 * __pyx_v_self->ITEM_factors.strides[0]) ) + __pyx_t_16 * __pyx_v_self->ITEM_factors.strides[1]) ))))));
     }
 
     /* "MatrixFactorization_Cython_Epoch.pyx":442

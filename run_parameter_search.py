@@ -26,6 +26,7 @@ from Utils.PoolWithSubprocess import PoolWithSubprocess
 from ParameterTuning.AbstractClassSearch import DictionaryKeys
 
 
+
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -404,9 +405,9 @@ def runParameterSearch_Collaborative(recommender_class, URM_train, metric_to_opt
         if recommender_class is SLIMElasticNetRecommender:
 
             hyperparamethers_range_dictionary = {}
-            hyperparamethers_range_dictionary["topK"] = [20, 50, 100, 300,800]
-            hyperparamethers_range_dictionary["l1_penalty"] = [1e-4, 1e-5, 1e-6,1e-7]
-            hyperparamethers_range_dictionary["l2_penalty"] = [1.0, 0.0, 0.01, 1e-2, 1e-3]
+            hyperparamethers_range_dictionary["alpha"] = [1, 0.01, 0.001,0.0001]
+            hyperparamethers_range_dictionary["topK"] = [10, 100, 200, 500, 800]
+            hyperparamethers_range_dictionary["l1_ratio"] = [1.0, 0.1, 0.5, 0.05, 1e-2, 1e-4]
 
             recommenderDictionary = {DictionaryKeys.CONSTRUCTOR_POSITIONAL_ARGS: [URM_train],
                                      DictionaryKeys.CONSTRUCTOR_KEYWORD_ARGS: {},
@@ -441,6 +442,11 @@ import os, multiprocessing
 from functools import partial
 
 
+
+
+
+
+
 def read_data_split_and_search():
     """
     This function pr
@@ -456,51 +462,70 @@ def read_data_split_and_search():
 
     import traceback, os
     import scipy.sparse
+    URM_all = scipy.sparse.load_npz('./Matrix/URM_all_matrix.npz')
+    ICM_all = scipy.sparse.load_npz('./Matrix/ICM_all_matrix.npz')
+    URM_train = scipy.sparse.load_npz('./Matrix/URM_train_matrix.npz')
+    URM_test = scipy.sparse.load_npz('./Matrix/URM_test_matrix.npz')
 
-    URM_all = scipy.sparse.load_npz('URM_all_matrix.npz')
-    ICM_all = scipy.sparse.load_npz('ICM_all_matrix.npz')
-    URM_train = scipy.sparse.load_npz('URM_train_matrix.npz')
-    URM_test = scipy.sparse.load_npz('URM_test_matrix.npz')
-    URM_validation = URM_test
+    
 
     output_root_path = "result_experiments/"
+
 
     # If directory does not exist, create
     if not os.path.exists(output_root_path):
         os.makedirs(output_root_path)
 
+
+
+
+
+
+
     collaborative_algorithm_list = [
-        # SLIM_BPR_Cython,
-        # TopPop,
-        # P3alphaRecommender,
-        # RP3betaRecommender,
-        ItemKNNCFRecommender
-        # UserKNNCFRecommender,
-        # MatrixFactorization_BPR_Cython,
-        # MatrixFactorization_FunkSVD_Cython,
-        # PureSVDRecommender,
-        #SLIMElasticNetRecommender
+       #SLIM_BPR_Cython,
+        #TopPop,
+        #P3alphaRecommender,
+        #RP3betaRecommender,
+        #ItemKNNCFRecommender,
+        #UserKNNCFRecommender,
+        #MatrixFactorization_BPR_Cython,
+        #MatrixFactorization_FunkSVD_Cython,
+        #PureSVDRecommender,
+        SLIMElasticNetRecommender
     ]
+
+
+
 
     from ParameterTuning.AbstractClassSearch import EvaluatorWrapper
     from Base.Evaluation.Evaluator import SequentialEvaluator
 
-    evaluator_validation_earlystopping = SequentialEvaluator(URM_validation, cutoff_list=[10])
+    evaluator_validation_earlystopping = SequentialEvaluator(URM_test, cutoff_list=[10])
     evaluator_test = SequentialEvaluator(URM_test, cutoff_list=[10])
+
 
     evaluator_validation = EvaluatorWrapper(evaluator_validation_earlystopping)
     evaluator_test = EvaluatorWrapper(evaluator_test)
 
+
+
     runParameterSearch_Collaborative_partial = partial(runParameterSearch_Collaborative,
-                                                       URM_train=URM_train,
-                                                       metric_to_optimize="MAP",
-                                                       evaluator_validation_earlystopping=evaluator_validation_earlystopping,
-                                                       evaluator_validation=evaluator_validation,
-                                                       evaluator_test=evaluator_test,
+                                                       URM_train = URM_train,
+                                                       metric_to_optimize = "MAP",
+                                                       evaluator_validation_earlystopping = evaluator_validation_earlystopping,
+                                                       evaluator_validation = evaluator_validation,
+                                                       evaluator_test = evaluator_test,
                                                        output_root_path=output_root_path)
+
+
+
+
 
     # pool = multiprocessing.Pool(processes=int(multiprocessing.cpu_count()), maxtasksperchild=1)
     # resultList = pool.map(runParameterSearch_Collaborative_partial, collaborative_algorithm_list)
+
+
 
     for recommender_class in collaborative_algorithm_list:
 
@@ -514,8 +539,13 @@ def read_data_split_and_search():
             traceback.print_exc()
 
 
+
+
 if __name__ == '__main__':
+
+
     read_data_split_and_search()
+
 
 
 

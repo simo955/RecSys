@@ -48,38 +48,51 @@ UCFRecommender.fit()
 
 SuperSimilarity = ItemKNNSimilarityHybridRecommender(URM_train, SLIMrecommender, SLIMErecommender)
 
-normList = ["l2", "l1", "max"]
+alpha=[0.2,0.3,0.4,0.5,0.6,0.7,0.8]
 topk = [100, 400, 800]
 
 import random
 
-for y in range(700):
-    print("Iteration {}".format(y))
-    sim = random.uniform(0.3, 0.7)
-    a = random.uniform(0.1, 0.7)
-    b = random.uniform(0.1, 0.8)
-    c = random.uniform(0.1, 0.5)
-    d = random.uniform(0.1, 0.4)
+for a in alpha:
+    print("ALPHAA"*30)
+    for b in alpha:
+        print("BETAA" * 30)
+        for c in alpha:
+            
+            sim = random.uniform(0.3, 0.7)
+            d = random.uniform(0.1, 0.4)
+            print("ITERATION sim={},alpha={},beta={}, gamma={}, delta={}".format(sim, a, b, c, d))
 
-    print("ITERATION sim={},alpha={},beta={}, gamma={}, delta={}".format(sim, a, b, c, d))
+            SuperSimilarity.fit(alpha=sim, topK=400)
 
-    SuperSimilarity.fit(alpha=sim)
-    for n in normList:
-        print("NORM ={}".format(n))
 
-        H3Scores1 = ItemKNNSimilarityHybridRecommender3(URM_train, SuperSimilarity, CFrecommender, CBFrecommender,
-                                                        norm=n)
-        H4Scores1 = ItemKNNSimilarityHybridRecommender4(URM_train, SLIMrecommender, SLIMErecommender, CFrecommender,
-                                                        CBFrecommender, norm=n)
+            H3ScoresSuper = ItemKNNSimilarityHybridRecommender3(URM_train, SuperSimilarity, CFrecommender, CBFrecommender)
 
-        for t in topk:
-            print("TOPK ={}".format(t))
+            H4Scores1 = ItemKNNSimilarityHybridRecommender4(URM_train, SLIMrecommender, SLIMErecommender, CFrecommender,
+                                                            CBFrecommender)
 
-            H3Scores1.fit(topK=t, alpha=a, beta=b, gamma=c)
-            result = H3Scores1.evaluateRecommendations(URM_test)
-            print("Recommender MAP is= {}".format(result["MAP"]))
+            H3Scores1 = ItemKNNSimilarityHybridRecommender3(URM_train, SLIMrecommender, CFrecommender,CBFrecommender)
+            H3Scores2 = ItemKNNSimilarityHybridRecommender3(URM_train, SLIMErecommender, CFrecommender,CBFrecommender)
 
-            H4Scores1.fit(topK=t, alpha=a, beta=b, gamma=c, delta=d)
-            result = H4Scores1.evaluateRecommendations(URM_test)
-            print("Recommender MAP is= {}".format(result["MAP"]))
+            for t in topk:
+                print("TOPK ={}".format(t))
+
+                H3ScoresSuper.fit(topK=t, alpha=a, beta=b, gamma=c)
+                result = H3ScoresSuper.evaluateRecommendations(URM_test)
+                print("Recommender MAP is= {}".format(result["MAP"]))
+
+                H4Scores1.fit(topK=t, alpha=a, beta=b, gamma=c, delta=d)
+                result = H4Scores1.evaluateRecommendations(URM_test)
+                print("Recommender MAP is= {}".format(result["MAP"]))
+                
+                H3Scores1.fit(topK=t, alpha=a, beta=b, gamma=c)
+                result = H3Scores1.evaluateRecommendations(URM_test)
+                print("Recommender MAP is= {}".format(result["MAP"]))
+                
+                H3Scores2.fit(topK=t, alpha=a, beta=b, gamma=c)
+                result = H3Scores2.evaluateRecommendations(URM_test)
+                print("Recommender MAP is= {}".format(result["MAP"]))
+                
+                
+                
 

@@ -158,63 +158,6 @@ class Recommender(object):
             ranking_list = ranking_list[0]
         
         return ranking_list
-  
-    def recommendBatch(self, user_id_array, cutoff = 10, remove_seen_flag=True):
-
-        # If is a scalar transform it in a 1-cell array
-        if np.isscalar(user_id_array):
-            user_id_array = np.atleast_1d(user_id_array)
-            single_user = True
-        else:
-            single_user = False
-
-
-        if cutoff is None:
-            cutoff = self.URM_train.shape[1] - 1
-
-        # Compute the scores using the model-specific function
-        # Vectorize over all users in user_id_array
-        scores_batch = self.compute_item_score(user_id_array)
-
-        
-        # if self.normalize:
-        #     # normalization will keep the scores in the same range
-        #     # of value of the ratings in dataset
-        #     user_profile = self.URM_train[user_id]
-        #
-        #     rated = user_profile.copy()
-        #     rated.data = np.ones_like(rated.data)
-        #     if self.sparse_weights:
-        #         den = rated.dot(self.W_sparse).toarray().ravel()
-        #     else:
-        #         den = rated.dot(self.W).ravel()
-        #     den[np.abs(den) < 1e-6] = 1.0  # to avoid NaNs
-        #     scores /= den
-
-
-        for user_index in range(len(user_id_array)):
-
-            user_id = user_id_array[user_index]
-
-            if remove_seen_flag:
-                scores_batch[user_index,:] = self._remove_seen_on_scores(user_id, scores_batch[user_index, :])
-
-            # Sorting is done in three steps. Faster then plain np.argsort for higher number of items
-            # - Partition the data to extract the set of relevant items
-            # - Sort only the relevant items
-            # - Get the original item index
-            # relevant_items_partition = (-scores_user).argpartition(cutoff)[0:cutoff]
-            # relevant_items_partition_sorting = np.argsort(-scores_user[relevant_items_partition])
-            # ranking = relevant_items_partition[relevant_items_partition_sorting]
-            #
-            # ranking_list.append(ranking)
-
-        # scores_batch = np.arange(0,3260).reshape((1, -1))
-        # scores_batch = np.repeat(scores_batch, 1000, axis = 0)
-
-
-        return  scores_batch 
-
 
 
 

@@ -10,6 +10,9 @@ import numpy as np
 import time, sys
 import scipy.sparse as sps
 from Base.Recommender_utils import check_matrix
+from numpy import linalg as LA
+
+
 
 
 
@@ -326,7 +329,7 @@ class Compute_Similarity_Python:
                         denominator = sumOfSquared_to_alpha[columnIndex] * sumOfSquared_to_1_minus_alpha + self.shrink + 1e-6
                     else:
                         denominator = sumOfSquared[columnIndex] * sumOfSquared + self.shrink + 1e-6
-
+                    
                     this_column_weights = np.multiply(this_column_weights, 1 / denominator)
 
 
