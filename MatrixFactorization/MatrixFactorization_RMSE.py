@@ -287,7 +287,7 @@ class AsySVD(Recommender):
         M = R.shape[0]
         self.U = np.vstack([AsySVD_compute_user_factors(R[i], self.Y) for i in range(M)])
 
-    def recommend(self, user_id, cutoff=None, remove_seen_flag=True):
+    def recommend(self, user_id, cutoff=None,  remove_seen_flag=True, remove_top_pop_flag = False, remove_CustomItems = False):
         scores = np.dot(self.X, self.U[user_id].T)
         ranking = scores.argsort()[::-1]
         # rank items
@@ -382,6 +382,7 @@ class IALS_numpy(Recommender):
 
     def fit(self, R):
         self.dataset = R
+        self.URM_train=R
         # compute the confidence matrix
         if self.scaling == 'linear':
             C = self._linear_scaling(R)

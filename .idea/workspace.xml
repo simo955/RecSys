@@ -2,40 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="76a24104-a440-4494-8b31-334eacf5aebc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/SuperSlimTuning.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SuperSlimTuning2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/elasticTuning.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tuningNotturnoSimmi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/create_matrix-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/create_matrix-checkpoint.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/run_all_alghorithms-ICM_work-checkpoint.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/run_all_alghorithms-Stasera-checkpoint.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/run_parameter_search-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/run_parameter_search-checkpoint.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/run_all_alghorithms-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/run_all_alghorithms-checkpoint.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/run_all_alghorithms-newMatrix-checkpoint.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Base/Evaluation/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Base/Evaluation/Evaluator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Base/Recommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/Base/Recommender.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Base/Similarity/Compute_Similarity_Python.py" beforeDir="false" afterPath="$PROJECT_DIR$/Base/Similarity/Compute_Similarity_Python.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Base/SimilarityMatrixRecommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/Base/SimilarityMatrixRecommender.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KNN/ItemKNNCBFRecommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/KNN/ItemKNNCBFRecommender.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixFactorization/Cython/MatrixFactorization_Cython_Epoch.c" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixFactorization/Cython/MatrixFactorization_Cython_Epoch.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixFactorization/Cython/MatrixFactorization_Cython_Epoch.cpython-36m-darwin.so" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixFactorization/Cython/MatrixFactorization_Cython_Epoch.cpython-36m-darwin.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixFactorization/Cython/MatrixFactorization_Cython_Epoch.cpython-36m-ppc64-linux-gnu.so" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixFactorization/Cython/MatrixFactorization_Cython_Epoch.cpython-36m-ppc64-linux-gnu.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixFactorization/Cython/MatrixFactorization_Cython_Epoch.cpython-36m-x86_64-linux-gnu.so" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixFactorization/Cython/MatrixFactorization_Cython_Epoch.cpython-36m-x86_64-linux-gnu.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixFactorization/Cython/MatrixFactorization_Cython_Epoch.html" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixFactorization/Cython/MatrixFactorization_Cython_Epoch.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixFactorization/Cython/MatrixFactorization_Cython_Epoch.pyx" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixFactorization/Cython/MatrixFactorization_Cython_Epoch.pyx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixFactorization/Cython/build/temp.macosx-10.7-x86_64-3.6/MatrixFactorization_Cython_Epoch.o" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixFactorization/Cython/build/temp.macosx-10.7-x86_64-3.6/MatrixFactorization_Cython_Epoch.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixFactorization/PureSVD.py" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixFactorization/PureSVD.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SLIM_ElasticNet/SLIMElasticNetRecommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/SLIM_ElasticNet/SLIMElasticNetRecommender.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SubToD/newSubmission1.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_matrix.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/create_matrix.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebook/Practice 4 - Cython.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/Practice 4 - Cython.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebook/Practice 6 - MF.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/Practice 6 - MF.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebook/Practice 8 - Hybrid recommenders.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/Practice 8 - Hybrid recommenders.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebook/Practice 9 - Collaborative Boosted FW.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/Practice 9 - Collaborative Boosted FW.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/result_experiments/result_all_algorithms.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_all_alghorithms-ICM_work.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_all_alghorithms-Stasera.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MatrixFactorization/PyTorch/MF_MSE_PyTorch.py" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixFactorization/PyTorch/MF_MSE_PyTorch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allImport.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebook/Practice 7 - MF with PyTorch.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/Practice 7 - MF with PyTorch.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run_all_alghorithms-SmallMatrixes.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/run_all_alghorithms-SmallMatrixes.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run_all_alghorithms-newMatrix.ipynb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/run_all_alghorithms.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/run_all_alghorithms.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run_all_algorithms.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_all_algorithms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run_parameter_search.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/run_parameter_search.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run_parameter_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_parameter_search.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tuningNotturno1.py" beforeDir="false" afterPath="$PROJECT_DIR$/tuningNotturno1.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,7 +28,7 @@
     <session id="1214510568">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="22" />
+          <entry key="project.closed" value="26" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.12" value="1" />
@@ -55,37 +36,37 @@
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.4" value="5" />
-          <entry key="project.open.time.5" value="5" />
-          <entry key="project.open.time.6" value="1" />
-          <entry key="project.open.time.7" value="2" />
-          <entry key="project.open.time.8" value="2" />
+          <entry key="project.open.time.5" value="6" />
+          <entry key="project.open.time.6" value="2" />
+          <entry key="project.open.time.7" value="3" />
+          <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="22" />
+          <entry key="project.opened" value="26" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="ipynb" value="14" />
-          <entry key="py" value="66" />
+          <entry key="ipynb" value="20" />
+          <entry key="py" value="71" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="IPNB" value="14" />
-          <entry key="Python" value="64" />
+          <entry key="IPNB" value="20" />
+          <entry key="Python" value="69" />
           <entry key="Scratch" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="16" />
-          <entry key="py" value="2547" />
+          <entry key="py" value="2561" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="16" />
-          <entry key="Python" value="2490" />
+          <entry key="Python" value="2504" />
           <entry key="Scratch" value="57" />
         </counts>
       </usages-collector>
@@ -96,11 +77,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/SuperSlimTuning.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/run_parameter_search.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="55" selection-start-line="55" selection-end-line="55" selection-end-column="23" />
+            <state relative-caret-position="-2237">
+              <caret line="1" selection-start-line="1" selection-end-line="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/run_all_alghorithms-Oggi.ipynb">
+          <provider selected="true" editor-type-id="ipnb-editor">
+            <state>
+              <selected id="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/run_all_alghorithms.ipynb">
+          <provider selected="true" editor-type-id="ipnb-editor">
+            <state>
+              <selected id="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/run_all_algorithms.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="492">
+              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
               <folding>
                 <element signature="e#0#59#0" expanded="true" />
               </folding>
@@ -132,6 +140,7 @@
       <find>MAP is= 0.097</find>
       <find>MAP is= 0.0985</find>
       <find>MAP is= 0.098</find>
+      <find>'MAP': 0.068</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -145,7 +154,6 @@
         <option value="$PROJECT_DIR$/../Software_Engineering21/setup.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_3.py" />
         <option value="$PROJECT_DIR$/KNN/ItemKNNRatingHybridRecommender.py" />
-        <option value="$PROJECT_DIR$/run_all_algorithms.py" />
         <option value="$PROJECT_DIR$/KNN/ItemKNNSimilarityHybridRecommender4.py" />
         <option value="$PROJECT_DIR$/../RecSysExam/notebooks/Practice 4 - Cython.ipynb" />
         <option value="$PROJECT_DIR$/SLIM_ElasticNet/SLIMElasticNetRecommender.py" />
@@ -154,17 +162,22 @@
         <option value="$PROJECT_DIR$/tuningNotturno.py" />
         <option value="$PROJECT_DIR$/run_all_alghorithms-Stasera.ipynb" />
         <option value="$PROJECT_DIR$/Base/Recommender.py" />
-        <option value="$PROJECT_DIR$/run_parameter_search.py" />
         <option value="$PROJECT_DIR$/tuningNotturno1.py" />
         <option value="$PROJECT_DIR$/prova.py" />
         <option value="$PROJECT_DIR$/elasticTuning.py" />
         <option value="$PROJECT_DIR$/run_all_alghorithms-newMatrix.ipynb" />
         <option value="$PROJECT_DIR$/SuperSlimTuning2.py" />
         <option value="$PROJECT_DIR$/SuperSlimTuning.py" />
+        <option value="$PROJECT_DIR$/run_parameter_search-patu.ipynb" />
+        <option value="$PROJECT_DIR$/tuningNotturnoSimmi.py" />
+        <option value="$PROJECT_DIR$/run_parameter_search.ipynb" />
+        <option value="$PROJECT_DIR$/run_all_alghorithms-Oggi.ipynb" />
+        <option value="$PROJECT_DIR$/run_parameter_search.py" />
+        <option value="$PROJECT_DIR$/run_all_algorithms.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="54" />
     <option name="y" value="23" />
     <option name="width" value="1386" />
@@ -184,11 +197,6 @@
             <path>
               <item name="newRecSysExam" type="b2602c69:ProjectViewProjectNode" />
               <item name="newRecSysExam" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="newRecSysExam" type="b2602c69:ProjectViewProjectNode" />
-              <item name="newRecSysExam" type="462c0819:PsiDirectoryNode" />
-              <item name="KNN" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="newRecSysExam" type="b2602c69:ProjectViewProjectNode" />
@@ -225,7 +233,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.SuperSlimTuning">
+  <component name="RunManager" selected="Python.run_all_algorithms">
     <configuration name="SuperSlimTuning" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="newRecSysExam" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -268,8 +276,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="elasticTuning" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <output_file path="$USER_HOME$/Desktop" is_save="true" />
+    <configuration name="run_all_algorithms" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="newRecSysExam" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -281,7 +288,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/elasticTuning.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/run_all_algorithms.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -311,8 +318,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="tuningNotturno1" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <output_file path="$USER_HOME$/Desktop" is_save="true" />
+    <configuration name="tuningNotturnoSimmi" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="newRecSysExam" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -324,7 +330,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tuningNotturno1.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tuningNotturnoSimmi.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -334,19 +340,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.run_parameter_search" />
-      <item itemvalue="Python.tuningNotturno1" />
       <item itemvalue="Python.SuperSlimTuning" />
-      <item itemvalue="Python.elasticTuning" />
       <item itemvalue="Python.SuperSlimTuning2" />
+      <item itemvalue="Python.tuningNotturnoSimmi" />
+      <item itemvalue="Python.run_parameter_search" />
+      <item itemvalue="Python.run_all_algorithms" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.run_all_algorithms" />
+        <item itemvalue="Python.run_parameter_search" />
+        <item itemvalue="Python.tuningNotturnoSimmi" />
         <item itemvalue="Python.SuperSlimTuning" />
         <item itemvalue="Python.SuperSlimTuning2" />
-        <item itemvalue="Python.elasticTuning" />
-        <item itemvalue="Python.tuningNotturno1" />
-        <item itemvalue="Python.run_parameter_search" />
       </list>
     </recent_temporary>
   </component>
@@ -374,13 +380,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="23" width="1386" height="877" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49335864" visible="true" weight="0.2725275" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49335864" visible="true" weight="0.14432235" />
       <window_info id="Structure" order="1" sideWeight="0.5047438" side_tool="true" weight="0.2725275" />
       <window_info id="Favorites" order="2" sideWeight="0.5066414" side_tool="true" weight="0.2725275" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4996337" weight="0.42675158" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4996337" weight="0.07898089" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -388,7 +395,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32866243" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50109893" side_tool="true" weight="0.32866243" />
-      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.4989011" weight="0.32866243" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.4989011" weight="0.3299363" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -450,13 +457,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/run_all_alghorithms.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/KNN/ItemKNNSimilarityHybridRecommender.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-537" />
@@ -480,13 +480,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="122">
           <caret line="35" column="41" lean-forward="true" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run_all_algorithms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="21" selection-start-line="21" selection-end-line="24" selection-end-column="64" />
         </state>
       </provider>
     </entry>
@@ -547,33 +540,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/run_parameter_search.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="133" selection-start-line="133" selection-end-line="133" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run_parameter_search.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/KNN/UserKNNCFRecommender.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-502" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/run_all_alghorithms-prova.ipynb" />
-    <entry file="file://$PROJECT_DIR$/tuningNotturno1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-284">
-          <caret line="76" column="12" selection-start-line="76" selection-start-column="12" selection-end-line="76" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/elasticTuning.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
@@ -581,37 +553,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/run_all_alghorithms-newMatrix.ipynb">
+    <entry file="file://$PROJECT_DIR$/run_all_alghorithms-newMatrix.ipynb" />
+    <entry file="file://$PROJECT_DIR$/run_all_alghorithms-Stasera.ipynb" />
+    <entry file="file://$PROJECT_DIR$/SuperSlimTuning2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="68" column="8" selection-start-line="68" selection-start-column="8" selection-end-line="68" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SuperSlimTuning.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="433">
+          <caret line="55" selection-start-line="55" selection-end-line="55" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/KNN/UserKNNCBF1Recommender.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/create_matrix.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/run_all_alghorithms-Stasera.ipynb">
+    <entry file="file://$PROJECT_DIR$/tuningNotturnoSimmi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9844">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tuningNotturno1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-164">
+          <caret line="76" column="12" selection-start-line="76" selection-start-column="12" selection-end-line="76" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run_parameter_search-patu.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="4" />
+          <selected id="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SuperSlimTuning2.py">
+    <entry file="file://$PROJECT_DIR$/run_parameter_search.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run_all_algorithms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="68" column="8" selection-start-line="68" selection-start-column="8" selection-end-line="68" selection-end-column="8" />
+        <state relative-caret-position="492">
+          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
           <folding>
             <element signature="e#0#59#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SuperSlimTuning.py">
+    <entry file="file://$PROJECT_DIR$/run_parameter_search.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="55" selection-start-line="55" selection-end-line="55" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#59#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-2237">
+          <caret line="1" selection-start-line="1" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run_all_alghorithms.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run_all_alghorithms-Oggi.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="11" />
         </state>
       </provider>
     </entry>

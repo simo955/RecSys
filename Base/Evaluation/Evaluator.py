@@ -378,7 +378,8 @@ class SequentialEvaluator(Evaluator):
                     recommended_items_current_cutoff = recommended_items[0:cutoff]
 
                     results_current_cutoff[EvaluatorMetrics.ROC_AUC.value]              += roc_auc(is_relevant_current_cutoff)
-                    results_current_cutoff[EvaluatorMetrics.PRECISION.value]            += precision(is_relevant_current_cutoff, len(relevant_items))
+                    #results_current_cutoff[EvaluatorMetrics.PRECISION.value]            += precision(is_relevant_current_cutoff, len(relevant_items))
+                    results_current_cutoff[EvaluatorMetrics.PRECISION.value]            += 0
                     results_current_cutoff[EvaluatorMetrics.RECALL.value]               += recall(is_relevant_current_cutoff, relevant_items)
                     results_current_cutoff[EvaluatorMetrics.RECALL_TEST_LEN.value]      += recall_min_test_len(is_relevant_current_cutoff, relevant_items)
                     

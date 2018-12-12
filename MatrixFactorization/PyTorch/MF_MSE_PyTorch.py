@@ -29,7 +29,7 @@ class MF_MSE_PyTorch(Recommender, Incremental_Training_Early_Stopping):
     RECOMMENDER_NAME = "MF_MSE_PyTorch_Recommender"
 
 
-    def __init__(self, URM_train, positive_threshold=4, URM_validation = None):
+    def __init__(self, URM_train, positive_threshold=0, URM_validation = None):
 
 
         super(MF_MSE_PyTorch, self).__init__()
