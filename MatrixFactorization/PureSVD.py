@@ -28,7 +28,7 @@ class PureSVDRecommender(Recommender):
         self.compute_item_score = self.compute_score_SVD
 
 
-    def fit(self, num_factors=100,n_iter=5):
+    def fit(self, num_factors=1000,n_iter=40):
         
         self.n_iter=n_iter
 

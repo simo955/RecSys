@@ -39,7 +39,7 @@ class UserKNNCBFRecommender(SimilarityMatrixRecommender, Recommender):
 
 
 
-    def fit(self, topK=600, shrink=80, similarity='cosine', normalize=True, feature_weighting = "BM25", **similarity_args):
+    def fit(self, topK=100, shrink=30, similarity='cosine', normalize=True, feature_weighting = "BM25", **similarity_args):
 
         self.topK = topK
         self.shrink = shrink

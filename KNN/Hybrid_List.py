@@ -16,17 +16,17 @@ from sklearn.preprocessing import normalize
 
 
 
-class HybridScoresProva(Recommender):
-    """ HybridScoresProva
+class Hybrid_List(Recommender):
+    """ Hybrid_List
     Hybrid of two prediction scores R = R1*alpha + R2*(1-alpha)
 
     """
 
-    RECOMMENDER_NAME = "HybridScoresProva"
+    RECOMMENDER_NAME = "Hybrid_List"
 
 
     def __init__(self, URM_train, Recommender_1, Recommender_2):
-        super(HybridScoresProva, self).__init__()
+        super(Hybrid_List, self).__init__()
 
         self.URM_train = check_matrix(URM_train.copy(), 'csr')
         self.Recommender_1 = Recommender_1
