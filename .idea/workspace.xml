@@ -2,21 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="76a24104-a440-4494-8b31-334eacf5aebc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/tuningNotturnoSimmi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/run_all_alghorithms-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/run_all_alghorithms-checkpoint.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/run_all_alghorithms-newMatrix-checkpoint.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Base/Evaluation/Evaluator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Base/Evaluation/Evaluator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Base/Recommender.py" beforeDir="false" afterPath="$PROJECT_DIR$/Base/Recommender.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MatrixFactorization/PyTorch/MF_MSE_PyTorch.py" beforeDir="false" afterPath="$PROJECT_DIR$/MatrixFactorization/PyTorch/MF_MSE_PyTorch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/allImport.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebook/Practice 7 - MF with PyTorch.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/Practice 7 - MF with PyTorch.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_all_alghorithms-SmallMatrixes.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/run_all_alghorithms-SmallMatrixes.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_all_alghorithms-newMatrix.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run_all_alghorithms-ALS.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/run_all_alghorithms-ALS.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run_all_alghorithms.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/run_all_alghorithms.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_all_algorithms.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_all_algorithms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_parameter_search.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/run_parameter_search.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_parameter_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_parameter_search.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,8 +15,8 @@
     <session id="1214510568">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="26" />
-          <entry key="project.open.time.10" value="1" />
+          <entry key="project.closed" value="27" />
+          <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.14" value="1" />
@@ -41,7 +28,7 @@
           <entry key="project.open.time.7" value="3" />
           <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="26" />
+          <entry key="project.opened" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -77,20 +64,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/run_parameter_search.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2237">
+            <state relative-caret-position="-1575">
               <caret line="1" selection-start-line="1" selection-end-line="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/run_all_alghorithms-Oggi.ipynb">
-          <provider selected="true" editor-type-id="ipnb-editor">
-            <state>
-              <selected id="11" />
             </state>
           </provider>
         </entry>
@@ -107,8 +85,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/run_all_algorithms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="492">
-              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="299">
+              <caret line="40" selection-start-line="40" selection-end-line="40" />
               <folding>
                 <element signature="e#0#59#0" expanded="true" />
               </folding>
@@ -380,7 +358,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="23" width="1386" height="877" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49335864" visible="true" weight="0.14432235" />
       <window_info id="Structure" order="1" sideWeight="0.5047438" side_tool="true" weight="0.2725275" />
@@ -607,34 +584,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/run_all_alghorithms.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="3" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/run_all_algorithms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+        <state relative-caret-position="299">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
           <folding>
             <element signature="e#0#59#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/run_parameter_search.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2237">
-          <caret line="1" selection-start-line="1" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run_all_alghorithms.ipynb">
+    <entry file="file://$PROJECT_DIR$/run_all_alghorithms-Oggi.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/run_all_alghorithms-Oggi.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="11" />
+    <entry file="file://$PROJECT_DIR$/run_parameter_search.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1575">
+          <caret line="1" selection-start-line="1" selection-end-line="2" />
         </state>
       </provider>
     </entry>
