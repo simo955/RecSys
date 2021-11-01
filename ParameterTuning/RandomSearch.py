@@ -3,7 +3,7 @@
 """
 Created on 10/03/2018
 
-@author: Maurizio Ferrari Dacrema
+
 """
 
 from ParameterTuning.AbstractClassSearch import AbstractClassSearch, DictionaryKeys, writeLog

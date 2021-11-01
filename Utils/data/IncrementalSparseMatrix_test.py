@@ -3,7 +3,7 @@
 """
 Created on 09/09/2018
 
-@author: Maurizio Ferrari Dacrema
+
 """
 
 

@@ -3,7 +3,7 @@
 """
 Created on 13/01/2018
 
-@author: Maurizio Ferrari Dacrema
+
 """
 
 from Base.Recommender_utils import check_matrix

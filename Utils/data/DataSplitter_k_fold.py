@@ -3,7 +3,7 @@
 """
 Created on 12/01/18
 
-@author: Maurizio Ferrari Dacrema
+
 """
 
 import scipy.sparse as sps

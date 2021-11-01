@@ -3,7 +3,7 @@
 """
 Created on 28 June 2017
 
-@author: Maurizio Ferrari Dacrema
+
 """
 
 import os

@@ -3,7 +3,7 @@
 """
 Created on 05/07/18
 
-@author: Maurizio Ferrari Dacrema
+
 """
 
 import torch
