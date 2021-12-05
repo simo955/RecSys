@@ -96,3 +96,12 @@ playlist_id,track_ids
 ```
 
 > IMPORTANT: first line is mandatory and must be properly formatted.
+
+
+## Usage
+This repo contains many experiments used to build the various submissions done. Let's quickly break down each folder:
+
+- **Data**: contains the .csv files already given with the challenge, the matrixs created as an input for the recommender engine and stored (to save time) and, the .csv submissions done.
+- **Utils**: contains the scripts or experiment (as .ipynb) useful in more than on approach.
+- **ParameterTuning**: contains the scripts used to tune the engines created (very important!)
+- **Approaches**: contains the recommendation engines created or tested.
