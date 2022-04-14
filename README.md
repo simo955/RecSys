@@ -1,9 +1,9 @@
 # Recommender System 2018 Competition
 
 ## Project Overview
+The competition goal was to produce a recommendation of 10 tracks for each of the 10k given playlists. 
+It evaluated the results of 4 different submissions on *Kaggle* ([here](https://www.kaggle.com/c/recommender-system-2018-challenge-polimi/overview)) over a time span of 6 months. <br/>
 
-This competition aggregated the results of 4 different submissions on *Kaggle* ([here](https://www.kaggle.com/c/recommender-system-2018-challenge-polimi/overview)) over a time span of 6 months.<br/>
-The goal was to produce a recommendation of 10 tracks for each of the 10k given playlists. 
 Independently built a **Hybrid Recommender System** combining both content-based filtering and collaborative filtering techniques using python.  <br/>
 *Final position*: 12th over 80 teams (for 3 submissions in the top 5 reaching highest possible evaluation).
 
@@ -25,7 +25,8 @@ The application domain is a music streaming service, where users listen to track
 # Evaluation
 According to the standing, for each deadline points will be assigned to the teams in the following manner:
 
-$$ si = 12 - 12 \times \log2{ \left [ \frac{ri - 1}{N\textrm{teams} - 1} +1 \right ] } $$
+<img src="https://render.githubusercontent.com/render/math?math=si = 12 - 12 \times \log2{ \left [ \frac{ri - 1}{N\textrm{teams} - 1} +1 \right ] }">
+ <br/>
 
 where *i* is the deadline, <br/>
 *Nteams* = number of teams in the competions, <br/>
@@ -37,12 +38,14 @@ Maximum standing vote is 12 points.
 
 The total score is computed from the private leaderboard with the following formula:
 
-$$ \textrm{score} = \frac{ \sum{i} wi \cdot si }{\sum{i} w_i} + b + t + a $$
-
+<img src="https://render.githubusercontent.com/render/math?math=\textrm{score} = \frac{ \sum{i} wi \cdot si }{\sum{i} w_i} + b + t + a">
+ <br/>
 where i is the i-th deadline, and
 
-$$ wi = 1 \textrm{ (intermediate deadline)}
-wi = 2 \textrm{ (final deadline)} $$
+<img src="https://render.githubusercontent.com/render/math?math=wi = 1 \textrm{ (intermediate deadline)}
+wi = 2 \textrm{ (final deadline)}">
+ <br/>
+
 
 The last deadline weights twice each intermediate deadline.
 
