@@ -1,4 +1,4 @@
-# Recommender System 2018 Competition
+# Recommender System Competition
 
 ## Project Overview
 The competition goal was to produce a recommendation of 10 tracks for each of the 10k given playlists. 
